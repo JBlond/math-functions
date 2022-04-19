@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class CircleTest extends TestCase
 {
-    private $circle;
+    private Circle $circle;
 
     public function setUp() : void
     {
         $this->circle = new Circle();
     }
 
-    public function testRadiusToCircumference()
+    public function testRadiusToCircumference(): void
     {
         $this->assertEquals(
             157.07963267949,
@@ -21,7 +21,7 @@ class CircleTest extends TestCase
         );
     }
 
-    public function testRadiusToArea()
+    public function testRadiusToArea(): void
     {
         $this->assertEquals(
             78.539816339745,
@@ -29,7 +29,7 @@ class CircleTest extends TestCase
         );
     }
 
-    public function testAreaToRadius()
+    public function testAreaToRadius(): void
     {
         $this->assertEquals(
             5,
@@ -37,7 +37,7 @@ class CircleTest extends TestCase
         );
     }
 
-    public function testAreaToCircumference()
+    public function testAreaToCircumference(): void
     {
         $this->assertEquals(
             47.559927571272,
@@ -45,7 +45,7 @@ class CircleTest extends TestCase
         );
     }
 
-    public function testCircumferenceToRadius()
+    public function testCircumferenceToRadius(): void
     {
         $this->assertEquals(
             25,
@@ -53,7 +53,7 @@ class CircleTest extends TestCase
         );
     }
 
-    public function testCircumferenceToArea()
+    public function testCircumferenceToArea(): void
     {
         $this->assertEquals(
             180,

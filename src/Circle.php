@@ -9,9 +9,9 @@ class Circle
 {
 
     /**
-     * @var \jblond\math\Numbers
+     * @var Numbers
      */
-    private $math;
+    private Numbers $math;
 
     /**
      *
