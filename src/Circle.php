@@ -61,11 +61,19 @@ class Circle
         return $c * $c / (2 * $this->math->tau);
     }
 
+    /**
+     * @param float $radius
+     * @return float
+     */
     public function radiusToCircumference(float $radius): float
     {
         return $radius * $this->math->tau;
     }
 
+    /**
+     * @param float $c
+     * @return float
+     */
     public function  circumferenceToRadius(float $c): float
     {
         return $c / $this->math->tau;
