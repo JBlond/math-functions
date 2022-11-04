@@ -1,5 +1,11 @@
 # Math functions
 
+Install via composer
+
+```bash
+composer require jblond/math-functions
+```
+
 ## Circle
 
 - radiusToArea
