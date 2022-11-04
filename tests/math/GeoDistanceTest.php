@@ -18,7 +18,7 @@ class GeoDistanceTest extends TestCase
     {
         $distance = new GeoDistance();
         $this->assertEquals(
-            612.39472035106,
+            612.3947203510587,
             $distance->get(
                 // Hamburg
                 53.553406,
@@ -32,7 +32,7 @@ class GeoDistanceTest extends TestCase
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
-            9075.3147446921,
+            9075.31474469208,
             $distance->get(
             // Hamburg
                 53.553406,
