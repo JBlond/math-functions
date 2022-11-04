@@ -8,7 +8,7 @@ class CircleTest extends TestCase
 {
     private Circle $circle;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->circle = new Circle();
     }

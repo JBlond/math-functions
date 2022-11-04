@@ -14,7 +14,7 @@ class GeoDistanceTest extends TestCase
      * Should be like https://www.luftlinie.org/Hamburg,DEU/M%C3%BCnchen,Bayern,DEU
      * @return void
      */
-    public function testGet()
+    public function testGet(): void
     {
         $distance = new GeoDistance();
         $this->assertEquals(
