@@ -18,7 +18,7 @@ class GeoDistance
      * @param float $earthRadius Mean earth radius in [m]
      * @return float|int Distance between points in [m] (same as earthRadius)
      */
-    public function get(
+    public function vincenty(
         float $latitudeFrom,
         float $longitudeFrom,
         float $latitudeTo,
@@ -39,4 +39,30 @@ class GeoDistance
         $angle = atan2(sqrt($a), $b);
         return $angle * $earthRadius;
     }
+
+    /**
+     * @param $lat1
+     * @param $lon1
+     * @param $lat2
+     * @param $lon2
+     * @return float|int
+     */
+    function haversine($lat1, $lon1, $lat2, $lon2)
+    {
+        // convert latitude and longitude to radians
+        $lat1 = deg2rad($lat1);
+        $lon1 = deg2rad($lon1);
+        $lat2 = deg2rad($lat2);
+        $lon2 = deg2rad($lon2);
+
+        // calculate the differences
+        $lat_diff = $lat2 - $lat1;
+        $lon_diff = $lon2 - $lon1;
+
+        // apply the Haversine formula
+        $a = sin($lat_diff / 2) * sin($lat_diff / 2) + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return 6371 * $c; // 6371 is the approximate radius of the Earth in kilometers
+    }
+
 }

@@ -19,7 +19,7 @@ class GeoDistanceTest extends TestCase
         $distance = new GeoDistance();
         $this->assertEquals(
             612.3947203510587,
-            $distance->get(
+            $distance->vincenty(
                 // Hamburg
                 53.553406,
                 9.992196,
@@ -33,7 +33,7 @@ class GeoDistanceTest extends TestCase
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
             9075.31474469208,
-            $distance->get(
+            $distance->vincenty(
             // Hamburg
                 53.553406,
                 9.992196,
@@ -44,5 +44,34 @@ class GeoDistanceTest extends TestCase
                 6371
             )
         );
+    }
+
+    public function testHaversineDistance(): void
+    {
+        $distance = new GeoDistance();
+        $this->assertEquals(
+            612.3947203510587,
+            $distance->haversine(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // munich
+                48.137108,
+                11.575382
+            )
+        );
+        // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
+        $this->assertEquals(
+            9075.31474469208,
+            $distance->haversine(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // Los Angeles
+                34.052230,
+                -118.243680
+            )
+        );
+
     }
 }
