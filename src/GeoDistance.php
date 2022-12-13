@@ -9,6 +9,11 @@ class GeoDistance
 {
 
     /**
+     * @var int the radius of the Earth in meters
+     */
+    protected const earthRadius = 6371000;
+
+    /**
      * Calculates the great-circle distance between two points, with the Vincenty formula.
      *
      * @param float $latitudeFrom Latitude of start point in [deg decimal]
@@ -70,7 +75,7 @@ class GeoDistance
         // apply the Haversine formula
         $a = sin($lat_diff / 2) * sin($lat_diff / 2) + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        return 6371000 * $c; // 6371000 is the approximate radius of the Earth in meters
+        return static::earthRadius * $c;
     }
 
     /**
@@ -105,7 +110,7 @@ class GeoDistance
         // apply the Great Circle formula
         $a = sin($lat_diff / 2) * sin($lat_diff / 2) + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        return 6371000 * $c; // 6371000 is the approximate radius of the Earth in meters
+        return static::earthRadius * $c;
     }
 
     /**
@@ -135,7 +140,7 @@ class GeoDistance
         // apply the formula
         $x = ($lon2 - $lon1) * cos(($lat1 + $lat2) / 2);
         $y = $lat2 - $lat1;
-        return sqrt($x * $x + $y * $y) * 6371000; // 6371000 is the radius of the Earth in meters
+        return sqrt($x * $x + $y * $y) * static::earthRadius;
     }
 
     /**
@@ -161,6 +166,6 @@ class GeoDistance
         // apply the formula
         $cos_theta = sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($lon2 - $lon1);
         $theta = acos($cos_theta);
-        return $theta * 6371000; // 6371000 is the radius of the Earth in meters
+        return $theta * static::earthRadius;
     }
 }
