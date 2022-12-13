@@ -31,6 +31,7 @@
     "classmap-authoritative": true
   },
   "scripts": {
-    "phpunit": "phpunit ./tests/"
+    "phpunit": "phpunit ./tests/",
+    "test": "phpunit --colors=always --testdox"
   }
 }

@@ -14,7 +14,7 @@ class GeoDistanceTest extends TestCase
      * Should be like https://www.luftlinie.org/Hamburg,DEU/M%C3%BCnchen,Bayern,DEU
      * @return void
      */
-    public function testGet(): void
+    public function testVincenty(): void
     {
         $distance = new GeoDistance();
         $this->assertEquals(
@@ -50,7 +50,7 @@ class GeoDistanceTest extends TestCase
     {
         $distance = new GeoDistance();
         $this->assertEquals(
-            612.3947203510587,
+            612394.7203510588,
             $distance->haversine(
             // Hamburg
                 53.553406,
@@ -62,7 +62,7 @@ class GeoDistanceTest extends TestCase
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
-            9075.31474469208,
+            9075314.74469208,
             $distance->haversine(
             // Hamburg
                 53.553406,
@@ -72,6 +72,90 @@ class GeoDistanceTest extends TestCase
                 -118.243680
             )
         );
+    }
 
+    public function testGreatCircle(): void
+    {
+        $distance = new GeoDistance();
+        $this->assertEquals(
+            612394.7203510588,
+            $distance->greatCircle(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // munich
+                48.137108,
+                11.575382
+            )
+        );
+        // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
+        $this->assertEquals(
+            9075314.74469208,
+            $distance->greatCircle(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // Los Angeles
+                34.052230,
+                -118.243680
+            )
+        );
+    }
+
+    public function testEquirectangularApproximation(): void
+    {
+        $distance = new GeoDistance();
+        $this->assertEquals(
+            612436.6348023742,
+            $distance->equirectangularApproximation(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // munich
+                48.137108,
+                11.575382
+            )
+        );
+        // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
+        $this->assertEquals(
+            // 9075.31474469208 is the true value. Equirectangular Approximation is no very accurate
+            10517193.640868774,
+            $distance->equirectangularApproximation(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // Los Angeles
+                34.052230,
+                -118.243680
+            )
+        );
+    }
+
+    public function testCosineLaw(): void
+    {
+        $distance = new GeoDistance();
+        $this->assertEquals(
+            612394.7203510538,
+            $distance->cosineLaw(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // munich
+                48.137108,
+                11.575382
+            )
+        );
+        // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
+        $this->assertEquals(
+            9075314.74469208,
+            $distance->cosineLaw(
+            // Hamburg
+                53.553406,
+                9.992196,
+                // Los Angeles
+                34.052230,
+                -118.243680
+            )
+        );
     }
 }
