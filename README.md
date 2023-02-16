@@ -51,3 +51,13 @@ Calculates the distance between two points. Choose your function.
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
+
+## Fibonacci
+
+- Fibonacci
+  - fibonacciRecursion
+    - Parameters
+      - integer $number
+  - fibonacciWithBinetFormula
+    - Parameters
+      - integer $number
