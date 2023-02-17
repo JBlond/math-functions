@@ -13,7 +13,7 @@ class FibonacciTest extends TestCase
     /**
      * @var Fibonacci
      */
-    private $fibonacci;
+    private Fibonacci $fibonacci;
 
     /**
      * @return void
@@ -26,7 +26,7 @@ class FibonacciTest extends TestCase
     /**
      * @return void
      */
-    public function testFibonacciRecursion()
+    public function testFibonacciRecursion(): void
     {
         $this->assertEquals(
             [
@@ -45,7 +45,7 @@ class FibonacciTest extends TestCase
     /**
      * @return void
      */
-    public function testFibonacciWithBinetFormular()
+    public function testFibonacciWithBinetFormula(): void
     {
         $this->assertEquals(
             [
