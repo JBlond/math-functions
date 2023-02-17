@@ -2,6 +2,8 @@
 
 namespace jblond\math;
 
+use ValueError;
+
 /**
  *
  */
@@ -27,7 +29,7 @@ class Fibonacci
     protected function recursion(int $number): int
     {
         if ($number < 0) {
-            throw new \ValueError('Number must be greater than 0.');
+            throw new ValueError('Number must be greater than 0.');
         }
         if ($number === 0 || $number === 1) {
             return $number;
@@ -48,7 +50,7 @@ class Fibonacci
     {
         $fibonacciArray = [];
         if ($number < 0) {
-            throw new \ValueError('Number must be greater than 0.');
+            throw new ValueError('Number must be greater than 0.');
         }
         $sqrt = sqrt(5);
         $phiOne = (1 + $sqrt) / 2;
