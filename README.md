@@ -61,3 +61,8 @@ Calculates the distance between two points. Choose your function.
   - fibonacciWithBinetFormula
     - Parameters
       - integer $number
+
+## Air
+ - AbsoluteHumidity
+ - heatIndex
+ - windchill
