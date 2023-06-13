@@ -75,11 +75,8 @@ class Air
 
         $pressure = $kSVP * exp(($kA * $temperatureInCelsius) / ($temperatureInCelsius + $kB)) * $relativeHumidity;
         $waterVaporInMols = $pressure / ($temperatureInKelvin * 0.08314);
-        $waterInCubicGrams = $waterVaporInMols * $kMolecularWeight;
 
-        //Plausible Check:
-
-        return (float)$waterInCubicGrams; // g/m³
+        return $waterVaporInMols * $kMolecularWeight; // g/m³
     }
 
     /**

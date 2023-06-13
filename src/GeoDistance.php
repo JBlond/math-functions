@@ -21,7 +21,7 @@ class GeoDistance
      * @param float $latitudeTo Latitude of target point in [deg decimal]
      * @param float $longitudeTo Longitude of target point in [deg decimal]
      * @param float $earthRadius Mean earth radius in [m]
-     * @return float|int Distance between points in [m] (same as earthRadius)
+     * @return float Distance between points in [m] (same as earthRadius)
      */
     public function vincenty(
         float $latitudeFrom,
@@ -29,7 +29,8 @@ class GeoDistance
         float $latitudeTo,
         float $longitudeTo,
         float $earthRadius = 6371000
-    ) {
+    ):float
+    {
         // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
@@ -54,14 +55,15 @@ class GeoDistance
      * @param float $lon1
      * @param float $lat2
      * @param float $lon2
-     * @return float|int
+     * @return float
      */
     public function haversine(
         float $lat1,
         float $lon1,
         float $lat2,
         float $lon2
-    ) {
+    ):float
+    {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -89,14 +91,15 @@ class GeoDistance
      * @param float $lon1
      * @param float $lat2
      * @param float $lon2
-     * @return float|int
+     * @return float
      */
     public function greatCircle(
         float $lat1,
         float $lon1,
         float $lat2,
         float $lon2
-    ) {
+    ): float
+    {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -123,14 +126,15 @@ class GeoDistance
      * @param float $lon1
      * @param float $lat2
      * @param float $lon2
-     * @return float|int
+     * @return float
      */
     public  function equirectangularApproximation(
         float $lat1,
         float $lon1,
         float $lat2,
         float $lon2
-    ) {
+    ): float
+    {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -148,14 +152,15 @@ class GeoDistance
      * @param float $lon1
      * @param float $lat2
      * @param float $lon2
-     * @return float|int
+     * @return float
      */
     public function cosineLaw(
         float $lat1,
         float $lon1,
         float $lat2,
         float $lon2
-    ) {
+    ): float
+    {
 
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
