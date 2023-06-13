@@ -2,6 +2,9 @@
 
 namespace jblond\math;
 
+/**
+ *
+ */
 class Air
 {
 
@@ -77,6 +80,26 @@ class Air
         //Plausible Check:
 
         return (float)$waterInCubicGrams; // g/m³
+    }
+
+    /**
+     * Calculates the dew point from the current temperature and the relative humidity
+     * for temperatures between -65 °C and +60 °C.
+     * The dew point is the value to which the temperature must fall for dew to form.
+     * @param float $temperatureInCelsius
+     * @param float $humidityInPercent
+     * @return float|int
+     */
+    public function dewPoint(float $temperatureInCelsius, float $humidityInPercent)
+    {
+        $k2 = 17.62;
+        $k3 = 243.12;
+        if($temperatureInCelsius <= 0){
+            $k2 = 22.46;
+            $k3 = 272.62;
+        }
+
+        return $k3*(($k2 * $temperatureInCelsius)/($k3+$temperatureInCelsius)+log($humidityInPercent/100))/(($k2 * $k3)/($k3+$temperatureInCelsius)-log($humidityInPercent/100));
     }
 
     /**

@@ -64,5 +64,6 @@ Calculates the distance between two points. Choose your function.
 
 ## Air
  - AbsoluteHumidity
+ - dewPoint
  - heatIndex
  - windchill

@@ -45,4 +45,12 @@ class AirTest extends TestCase
             $this->air->heatIndex(28.62, 37.34)
         );
     }
+
+    public function testDewPoint()
+    {
+        $this->assertEquals(
+            8.872471490029255,
+            $this->air->dewPoint(23.70, 38.88)
+        );
+    }
 }
