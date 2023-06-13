@@ -20,37 +20,42 @@ composer require jblond/math-functions
 Calculates the distance between two points. Choose your function.
 
 - vincenty function
-  - Parameters
+  <details><summary>- Parameters</summary>
     - float $latitudeFrom Latitude of start point in [deg decimal]
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
     - float $earthRadius Mean earth radius in [m]
     - OPTIONAL float|int Distance between points in [m] (same as earthRadius) default: 6371000 meters
+  </details>
 - haversine function
-  - Parameters
+  <details><summary>- Parameters</summary>
     - float $latitudeFrom Latitude of start point in [deg decimal]
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
+  </details>
 - greatCircle
-  - Parameters
+  <details><summary>- Parameters</summary>
     - float $latitudeFrom Latitude of start point in [deg decimal]
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
+  </details>
 - equirectangularApproximation
-  - Parameters
+  <details><summary>- Parameters</summary>
     - float $latitudeFrom Latitude of start point in [deg decimal]
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
+  </details>
 - cosineLaw
-  - Parameters
+  <details><summary>- Parameters</summary>
     - float $latitudeFrom Latitude of start point in [deg decimal]
     - float $longitudeFrom Longitude of start point in [deg decimal]
     - float $latitudeTo Latitude of target point in [deg decimal]
     - float $longitudeTo Longitude of target point in [deg decimal]
+  </details>
 
 ## Fibonacci
 
