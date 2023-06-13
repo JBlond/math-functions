@@ -14,8 +14,8 @@
     "php": ">= 7.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7 || ^8 || ^9",
-    "vimeo/psalm": "^4.2"
+    "phpunit/phpunit": "^7 || ^8 || ^9 || ^10",
+    "vimeo/psalm": "^5.12"
   },
   "autoload": {
     "psr-4": {
