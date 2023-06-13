@@ -15,12 +15,12 @@ class Air
      * @param bool $isRelativeHumidityInPercent
      * @return float|null
      */
-    function calculateAbsoluteHumidity(
+    public function calculateAbsoluteHumidity(
         float $relativeHumidity,
         float $temperature,
         bool  $temperatureInFahrenheit = false,
         bool  $isRelativeHumidityInPercent = true
-    )
+    ): ?float
     {
         /*
         * Computes absolute humidity from relative humidity and temperature.
@@ -88,9 +88,9 @@ class Air
      * The dew point is the value to which the temperature must fall for dew to form.
      * @param float $temperatureInCelsius
      * @param float $humidityInPercent
-     * @return float|int
+     * @return float
      */
-    public function dewPoint(float $temperatureInCelsius, float $humidityInPercent)
+    public function dewPoint(float $temperatureInCelsius, float $humidityInPercent): float
     {
         $k2 = 17.62;
         $k3 = 243.12;
@@ -107,7 +107,7 @@ class Air
      * @param float $humidityInPercent
      * @return float
      */
-    function heatIndex(float $temperatureInCelsius, float $humidityInPercent)
+    public function heatIndex(float $temperatureInCelsius, float $humidityInPercent): float
     {
         return -8.784695 + 1.61139411 * $temperatureInCelsius + 2.338549 * $humidityInPercent - 0.14611605 * $temperatureInCelsius * $humidityInPercent - 0.012308094 * $temperatureInCelsius ** 2 - 0.016424828 * $humidityInPercent ** 2 + 0.002211732 * $temperatureInCelsius ** 2 * $humidityInPercent + 0.00072546 * $temperatureInCelsius * $humidityInPercent ** 2 - 0.000003582 * $temperatureInCelsius ** 2 * $humidityInPercent ** 2;
     }
@@ -119,7 +119,7 @@ class Air
      * @param float $windSpeedInKmPerHour
      * @return float
      */
-    function windchill(float $temperatureInCelsius, float $windSpeedInKmPerHour)
+    public function windchill(float $temperatureInCelsius, float $windSpeedInKmPerHour): float
     {
         return 13.12 + 0.6215 * $temperatureInCelsius - 11.37 * $windSpeedInKmPerHour ** 0.16 + 0.3965 * $temperatureInCelsius * $windSpeedInKmPerHour ** 0.16;
     }
