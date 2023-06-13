@@ -4,7 +4,7 @@
         colors="true"
         bootstrap="vendor/autoload.php"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd">
-    <coverage includeUncoveredFiles="true">
+    <coverage includeUncoveredFiles="true"/>
   <testsuites>
     <testsuite name="unit">
       <directory>tests</directory>
