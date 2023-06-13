@@ -67,3 +67,10 @@ Calculates the distance between two points. Choose your function.
  - dewPoint
  - heatIndex
  - windchill
+
+## Sphere
+ - areaOfADisc
+ - circumference
+ - diameter
+ - surfaceArea
+ - volume
