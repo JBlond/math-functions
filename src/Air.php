@@ -58,10 +58,9 @@ class Air
             return null;
         }
 
+        $temperatureInCelsius = $temperature;
         if ($temperatureInFahrenheit) {
             $temperatureInCelsius = ($temperature - 32) / 1.8000;
-        } else {
-            $temperatureInCelsius = $temperature;
         }
 
         if ($temperatureInCelsius < 1 || $temperatureInCelsius > 60) {
