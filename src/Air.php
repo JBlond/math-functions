@@ -53,13 +53,10 @@ class Air
             if ($relativeHumidity < 1 || $relativeHumidity > 100) {
                 return null;
             }
-            $relativeHumidity = ($relativeHumidity / 100.0);
-        } else {
-            if ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
-                return null;
-            }
+            $relativeHumidity /= 100.0;
+        } else if ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
+            return null;
         }
-
 
         if ($temperatureInFahrenheit) {
             $temperatureInCelsius = ($temperature - 32) / 1.8000;
