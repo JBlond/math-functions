@@ -79,6 +79,7 @@ class Air
      * Calculates the dew point from the current temperature and the relative humidity
      * for temperatures between -65 °C and +60 °C.
      * The dew point is the value to which the temperature must fall for dew to form.
+     * @url https://rechneronline.de/barometer/taupunkt.php
      * @param float $temperatureInCelsius
      * @param float $humidityInPercent
      * @return float
@@ -96,6 +97,7 @@ class Air
     }
 
     /**
+     * @url https://rechneronline.de/barometer/hitzeindex.php
      * @param float $temperatureInCelsius
      * @param float $humidityInPercent
      * @return float
@@ -108,6 +110,7 @@ class Air
 
     /**
      * felt temperature / windchill
+     * @url https://rechneronline.de/barometer/gefuehlte-temperatur.php
      * @param float $temperatureInCelsius
      * @param float $windSpeedInKmPerHour
      * @return float
