@@ -2,7 +2,7 @@
 
 Install via composer
 
-```bash
+```php
 composer require jblond/math-functions
 ```
 
