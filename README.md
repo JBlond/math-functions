@@ -75,6 +75,7 @@ Calculates the distance between two points. Choose your function.
  - diameter(float $radius)
  - surfaceArea(float $radius)
  - volume(float $radius)
+ - heading(array $from, array $to)
 
 ## Temperature
 
