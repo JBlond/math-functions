@@ -60,22 +60,26 @@ Calculates the distance between two points. Choose your function.
 ## Fibonacci
 
 - Fibonacci
-  - fibonacciRecursion
-    - Parameters
-      - integer $number
-  - fibonacciWithBinetFormula
-    - Parameters
-      - integer $number
+  - fibonacciRecursion(int $number)
+  - fibonacciWithBinetFormula(int $number)
 
 ## Air
- - AbsoluteHumidity
- - dewPoint
- - heatIndex
- - windchill
+ - AbsoluteHumidity(float $relativeHumidity, float $temperature, bool  $temperatureInFahrenheit = false, bool  $isRelativeHumidityInPercent = true)
+ - dewPoint(float $temperatureInCelsius, float $humidityInPercent)
+ - heatIndex(float $temperatureInCelsius, float $humidityInPercent)
+ - windchill(float $temperatureInCelsius, float $windSpeedInKmPerHour)
 
 ## Sphere
- - areaOfADisc
- - circumference
- - diameter
- - surfaceArea
- - volume
+ - areaOfADisc(float $radius)
+ - circumference(float $radius)
+ - diameter(float $radius)
+ - surfaceArea(float $radius)
+ - volume(float $radius)
+
+## Temperature
+
+  - fahrenheitToCelsius(float $temperature)
+  - celsiusToFahrenheit(float $temperature)
+  - fahrenheitToKelvin(float $temperature)
+  - celsiusToKelvin(float $temperature)
+  - kelvinToCelsius(float $temperature)
