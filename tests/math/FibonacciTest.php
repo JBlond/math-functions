@@ -40,6 +40,45 @@ class FibonacciTest extends TestCase
             ],
             $this->fibonacci->fibonacciRecursion(7)
         );
+        $this->assertEquals(
+            [],
+            $this->fibonacci->fibonacciRecursion(-2)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRecursion(): void
+    {
+        $this->assertEquals(
+            5,
+            $this->fibonacci->recursion(5)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testRecursionException(): void
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertEquals(
+            5,
+            $this->fibonacci->recursion(-2)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFibonacciWithBinetFormulaException(): void
+    {
+        $this->expectException(\ValueError::class);
+        $this->assertEquals(
+            [],
+            $this->fibonacci->fibonacciWithBinetFormula(-2)
+        );
     }
 
     /**

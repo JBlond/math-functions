@@ -27,7 +27,7 @@ class Fibonacci
      * @param int $number
      * @return int
      */
-    protected function recursion(int $number): int
+    public function recursion(int $number): int
     {
         if ($number < 0) {
             throw new ValueError('Number must be greater than 0.');
