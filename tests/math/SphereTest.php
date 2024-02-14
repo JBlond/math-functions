@@ -58,4 +58,15 @@ class SphereTest extends TestCase
             $this->sphere->surfaceArea(1)
         );
     }
+
+    public function testHeading(): void
+    {
+        $this->assertEquals(
+            -180,
+            $this->sphere->heading(
+                ['lat' => 25.775, 'lng' => -80.190], // from array [lat, lng]
+                ['lat' => 21.774, 'lng' => -80.190]
+            ) // to array [lat, lng]
+        );
+    }
 }
