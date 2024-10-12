@@ -108,6 +108,33 @@ class Air
         return -8.784695 + 1.61139411 * $temperatureInCelsius + 2.338549 * $humidityInPercent - 0.14611605 * $temperatureInCelsius * $humidityInPercent - 0.012308094 * $temperatureInCelsius ** 2 - 0.016424828 * $humidityInPercent ** 2 + 0.002211732 * $temperatureInCelsius ** 2 * $humidityInPercent + 0.00072546 * $temperatureInCelsius * $humidityInPercent ** 2 - 0.000003582 * $temperatureInCelsius ** 2 * $humidityInPercent ** 2;
     }
 
+    /**
+     * @url https://de.wikipedia.org/wiki/Hitzeindex
+     * Okay, Caution, Extreme caution, Danger, Extreme danger
+     * @param int $heatIndex
+     * @return string
+     */
+    public function heatIndexWarning(int $heatIndex): string
+    {
+
+        if ($heatIndex < 27) {
+            return "Normal";
+        }
+
+        if ($heatIndex < 32) {
+            return "Caution";
+        }
+
+        if ($heatIndex < 41) {
+            return "Extreme Caution";
+        }
+
+        if ($heatIndex < 54) {
+            return "Danger";
+        }
+
+        return "Extreme Danger";
+    }
 
     /**
      * felt temperature / windchill
