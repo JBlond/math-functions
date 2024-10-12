@@ -53,4 +53,18 @@ class AirTest extends TestCase
             $this->air->dewPoint(23.70, 38.88)
         );
     }
+
+    public function testWetBulbTemperature(): void
+    {
+        $this->assertEquals(
+            [
+                14.83,
+                14.14
+            ],
+            [
+                $this->air->wetBulbTemperature(21,52),
+                $this->air->wetBulbTemperature(21,47)
+            ]
+        );
+    }
 }
