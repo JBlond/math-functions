@@ -2,6 +2,7 @@
 
 namespace jblond\math;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class AirTest extends TestCase
@@ -34,6 +35,26 @@ class AirTest extends TestCase
         );
     }
 
+    public function testCalculateAbsoluteHumidityErrors(): void
+    {
+        $this->assertEquals(
+            [
+                null,
+                null,
+                null,
+                1.2886482972377484,
+                null
+            ],
+            [
+                $this->air->calculateAbsoluteHumidity(38.88, 101),
+                $this->air->calculateAbsoluteHumidity(105, 37),
+                $this->air->calculateAbsoluteHumidity(0.005, 37),
+                $this->air->calculateAbsoluteHumidity(22, 37, true),
+                $this->air->calculateAbsoluteHumidity(36, 37, false, false)
+            ]
+        );
+    }
+
     public function testHeatIndex(): void
     {
         $this->assertEquals(
@@ -54,6 +75,14 @@ class AirTest extends TestCase
         );
     }
 
+    public function testDewPointNeagetiveValue(): void
+    {
+        $this->assertEquals(
+            -15.611763340547643,
+            $this->air->dewPoint(-5, 38.88)
+        );
+    }
+
     public function testWetBulbTemperature(): void
     {
         $this->assertEquals(
@@ -65,6 +94,34 @@ class AirTest extends TestCase
                 $this->air->wetBulbTemperature(21,52),
                 $this->air->wetBulbTemperature(21,47)
             ]
+        );
+    }
+
+    public function testWetBulbTemperatureException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->air->wetBulbTemperature(-21, 50);
+    }
+
+    public function testHeatIndexWarning(): void
+    {
+        $this->assertEquals(
+            [
+                'Normal',
+                'Caution',
+                'Extreme Caution',
+                'Danger',
+                'Extreme Danger',
+                'Extreme Danger'
+            ],
+            [
+                $this->air->heatIndexWarning(26),
+                $this->air->heatIndexWarning(31),
+                $this->air->heatIndexWarning(32),
+                $this->air->heatIndexWarning(42),
+                $this->air->heatIndexWarning(55),
+                $this->air->heatIndexWarning(56)
+            ],
         );
     }
 }
