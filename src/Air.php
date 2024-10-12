@@ -148,4 +148,28 @@ class Air
         return 13.12 + 0.6215 * $temperatureInCelsius - 11.37 * $windSpeedInKmPerHour ** 0.16 + 0.3965 * $temperatureInCelsius * $windSpeedInKmPerHour ** 0.16;
     }
 
+    /**
+     * @url https://rechneronline.de/air/wet-bulb-temperature.php
+     * @param float $temperatureInCelsius
+     * @param float $humidityInPercent
+     * @return float|string
+     */
+    public function wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent) {
+        // Ensure the inputs are within the recommended range
+        if($temperatureInCelsius < -20 || $temperatureInCelsius > 50 || $humidityInPercent < 5 || $humidityInPercent > 99) {
+            return "Inputs out of valid range. Temperature in Celsius should be between -20 and 50°C, and Humidity between 5% and 99%.";
+        }
+
+        // Convert humidity to a fraction of 1
+        $humidityInPercent /= 100;
+
+        // Wet-bulb temperature calculation based on Stull's formula
+        $Tw = $$temperatureInCelsius * atan(0.151977 * sqrt($humidityInPercent) + 8.313659)
+            + atan($$temperatureInCelsius + $humidityInPercent)
+            - atan($humidityInPercent - 1.676331)
+            + 0.00391838 * ($humidityInPercent ** 1.5) * atan(0.023101 * $humidityInPercent)
+            - 4.686035;
+
+        return round($Tw, 2); // Return the wet-bulb temperature rounded to 2 decimal places
+    }
 }
