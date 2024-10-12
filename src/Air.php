@@ -156,7 +156,8 @@ class Air
      * @param float $temperatureInCelsius
      * @return float
      */
-    public function saturationVaporPressure(float $temperatureInCelsius) {
+    public function saturationVaporPressure(float $temperatureInCelsius): float
+    {
         return 6.112 * exp((17.67 * $temperatureInCelsius) / ($temperatureInCelsius + 243.5));
     }
 
