@@ -4,15 +4,27 @@ namespace jblond\math;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ *
+ */
 class CircleTest extends TestCase
 {
+    /**
+     * @var Circle
+     */
     private Circle $circle;
 
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
         $this->circle = new Circle();
     }
 
+    /**
+     * @return void
+     */
     public function testRadiusToCircumference(): void
     {
         $this->assertEquals(
@@ -21,6 +33,9 @@ class CircleTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testRadiusToArea(): void
     {
         $this->assertEquals(
@@ -29,6 +44,9 @@ class CircleTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testAreaToRadius(): void
     {
         $this->assertEquals(
@@ -37,6 +55,9 @@ class CircleTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testAreaToCircumference(): void
     {
         $this->assertEquals(
@@ -45,6 +66,9 @@ class CircleTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testCircumferenceToRadius(): void
     {
         $this->assertEquals(
@@ -53,6 +77,9 @@ class CircleTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testCircumferenceToArea(): void
     {
         $this->assertEquals(

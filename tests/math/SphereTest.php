@@ -7,13 +7,22 @@ use PHPUnit\Framework\TestCase;
 class SphereTest extends TestCase
 {
 
+    /**
+     * @var Sphere
+     */
     private Sphere $sphere;
 
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
        $this->sphere = new Sphere();
     }
 
+    /**
+     * @return void
+     */
     public function testAreaOfADisc(): void
     {
         $this->assertEquals(
@@ -22,6 +31,9 @@ class SphereTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testVolume(): void
     {
         $this->assertEquals(
@@ -30,6 +42,9 @@ class SphereTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testCircumference(): void
     {
         $this->assertEquals(
@@ -38,6 +53,9 @@ class SphereTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testDiameter(): void
     {
         $this->assertEquals(
@@ -51,6 +69,9 @@ class SphereTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testSurfaceArea(): void
     {
         $this->assertEquals(
@@ -59,6 +80,9 @@ class SphereTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testHeading(): void
     {
         $this->assertEquals(

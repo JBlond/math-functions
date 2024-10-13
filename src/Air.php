@@ -30,7 +30,7 @@ class Air
         *  Based on the August-Roche-Magnus approximation.
         *  Considered valid when: 0 < temperature < 60 degrees Celsius
         *                         1% < relative humidity < 100%
-        *                         0 < dew point < 50 degrees celsius
+        *                         0 < dew point < 50 degrees Celsius
         *
         * Args:
         *   relative.humidity: The relative humidity value to be converted.
@@ -172,12 +172,6 @@ class Air
         if ($temperatureInCelsius < -20 || $temperatureInCelsius > 50 || $humidityInPercent < 5 || $humidityInPercent > 99) {
             throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be between -20 and 50 °C, and Humidity between 5% and 99%.");
         }
-
-        // Calculate saturation vapor pressure in hPa
-        $es = $this->saturationVaporPressure($temperatureInCelsius);
-
-        // Calculate actual vapor pressure in hPa
-        $e = ($humidityInPercent / 100) * $es;
 
         // Calculate wet-bulb temperature
         $wetBulbTemperature = $temperatureInCelsius * atan(0.151977 * sqrt($humidityInPercent + 8.313659)) +

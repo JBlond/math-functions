@@ -1,20 +1,33 @@
 <?php
+declare(strict_types=1);
 
 namespace jblond\math;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ *
+ */
 class AirTest extends TestCase
 {
 
+    /**
+     * @var Air
+     */
     private Air $air;
 
+    /**
+     * @return void
+     */
     public function setUp(): void
     {
         $this->air = new Air();
     }
 
+    /**
+     * @return void
+     */
     public function testWindchill(): void
     {
         $this->assertEquals(
@@ -27,6 +40,9 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testCalculateAbsoluteHumidity(): void
     {
         $this->assertEquals(
@@ -35,6 +51,9 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testCalculateAbsoluteHumidityErrors(): void
     {
         $this->assertEquals(
@@ -55,6 +74,9 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testHeatIndex(): void
     {
         $this->assertEquals(
@@ -67,6 +89,9 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testDewPoint(): void
     {
         $this->assertEquals(
@@ -75,6 +100,9 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testDewPointNeagetiveValue(): void
     {
         $this->assertEquals(
@@ -83,6 +111,21 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
+    public function testsSaturationVaporPressure(): void
+    {
+        $this->assertEquals(
+            56.31158977575452,
+            $this->air->saturationVaporPressure(35)
+        );
+    }
+
+    /**
+     *
+     * @return void
+     */
     public function testWetBulbTemperature(): void
     {
         $this->assertEquals(
@@ -97,12 +140,18 @@ class AirTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testWetBulbTemperatureException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->air->wetBulbTemperature(-21, 50);
     }
 
+    /**
+     * @return void
+     */
     public function testHeatIndexWarning(): void
     {
         $this->assertEquals(

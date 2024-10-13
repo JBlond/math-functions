@@ -40,7 +40,7 @@ class Fibonacci
 
     /**
      * Fibonacci series using Binet's formula given below
-     * binet's formula =  ((1 + sqrt(5) / 2 ) ^ n - (1 - sqrt(5) / 2 ) ^ n ) ) / sqrt(5)
+     * binet's formula =  (((1 + sqrt(5) / 2 ) ^ n - (1 - sqrt(5) / 2 ) ^ n ) ) / sqrt(5)
      * More about Binet's formula can
      * be found at http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibFormula.html#section1
      *

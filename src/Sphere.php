@@ -105,7 +105,7 @@ class Sphere
      * @param float $max The maximum.
      * @return float
      */
-    public function wrap($n, $min, float $max): float
+    public function wrap(float $n, float $min, float $max): float
     {
         return ($n >= $min && $n < $max) ? $n : ($this->mod($n - $min, $max - $min) + $min);
     }
