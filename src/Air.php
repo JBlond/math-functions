@@ -57,7 +57,7 @@ class Air
                 return null;
             }
             $relativeHumidity /= 100.0;
-        } else if ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
+        } elseif ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
             return null;
         }
 
@@ -91,12 +91,12 @@ class Air
     {
         $k2 = 17.62;
         $k3 = 243.12;
-        if($temperatureInCelsius <= 0){
+        if ($temperatureInCelsius <= 0) {
             $k2 = 22.46;
             $k3 = 272.62;
         }
 
-        return $k3*(($k2 * $temperatureInCelsius)/($k3+$temperatureInCelsius)+log($humidityInPercent/100))/(($k2 * $k3)/($k3+$temperatureInCelsius)-log($humidityInPercent/100));
+        return $k3 * (($k2 * $temperatureInCelsius) / ($k3 + $temperatureInCelsius) + log($humidityInPercent / 100)) / (($k2 * $k3) / ($k3 + $temperatureInCelsius) - log($humidityInPercent / 100));
     }
 
     /**
@@ -167,7 +167,8 @@ class Air
      * @param float $humidityInPercent
      * @return float|string
      */
-    public function wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent): float {
+    public function wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent): float
+    {
         // Validate the inputs
         if ($temperatureInCelsius < -20 || $temperatureInCelsius > 50 || $humidityInPercent < 5 || $humidityInPercent > 99) {
             throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be between -20 and 50 °C, and Humidity between 5% and 99%.");
@@ -182,5 +183,38 @@ class Air
             4.686035;
 
         return round($wetBulbTemperature, 2); // Round to two decimal places
+    }
+
+    /**
+     *  The density of the air is mainly determined by the mass of the column of air above a point on earth.
+     *  Around 10 tons of air mass presses down on one square meter of earth at sea level.
+     *  We are used to this pressure and have developed under it in the course of evolution,
+     *  so we do not notice it and it is normal for us. The higher you go, i.e. the further you move up from sea level,
+     *  the lower the mass of the column of air becomes, so the air pressure and thus the air density also decreases.
+     *  Temperature and humidity have the following effect: cold objects tend to have a higher density,
+     *  this is especially true for air (in contrast to liquid water with its density anomaly, hence the word tend).
+     *  So cold air is denser. High humidity, on the other hand, reduces the density, because water
+     *  (which is present in the air as a gas) has a lower molecular mass than the nitrogen and
+     *  oxygen molecules in the air.
+     *
+     * Gas constant of moist air: Rf = Rt / [ 1 − φ * E/p * ( 1 − Rt/Rd ) ]
+     * With humidity φ between 0 and 1, saturation vapor pressure E in pascals, atmospheric pressure p in pascals, as
+     * the gas constant of dry air Rt = 287.058
+     * and the gas constant of steam Rd = 461.523
+     * The unit of the gas constant is J/(kg*k) = Joule / ( Kilogram * Kelvin)
+     *
+     * Air density = p / ( Rf * T)
+     * T is the temperature in kelvins = temperature in °C + 273.15
+     *
+     * @param float $temperatureInCelsius degree Celsius
+     * @param float $airPressure in hPa
+     * @param float $relativeHumidityInPercent
+     * @return float Air density in kg/m³
+     */
+    public function density(float $temperatureInCelsius, float $airPressure, float $relativeHumidityInPercent): float
+    {
+        $saturationVaporPressure = $this->saturationVaporPressure($temperatureInCelsius);
+        $moistAir = 287.058 / (1 - ($relativeHumidityInPercent) * $saturationVaporPressure / ($airPressure * 100) * (1 - 287.058 / 461.523));
+        return round(($airPressure / $moistAir / ($temperatureInCelsius + 273.15) * 100), 3);
     }
 }

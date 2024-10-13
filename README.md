@@ -65,6 +65,7 @@ Calculates the distance between two points. Choose your function.
 
 ## Air
  - AbsoluteHumidity(float $relativeHumidity, float $temperature, bool  $temperatureInFahrenheit = false, bool  $isRelativeHumidityInPercent = true)
+ - density(float $temperatureInCelsius, float $airPressure, float $relativeHumidityInPercent)
  - dewPoint(float $temperatureInCelsius, float $humidityInPercent)
  - heatIndex(float $temperatureInCelsius, float $humidityInPercent)
  - heatIndexWarning(int $heatIndex)

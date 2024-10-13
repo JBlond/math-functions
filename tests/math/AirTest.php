@@ -173,4 +173,15 @@ class AirTest extends TestCase
             ],
         );
     }
+
+    /**
+     * @return void
+     */
+    public function testDensity(): void
+    {
+        $this->assertEquals(
+            1.173,
+            $this->air->density(22, 999, 51)
+        );
+    }
 }
