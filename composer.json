@@ -31,6 +31,10 @@
     "classmap-authoritative": true
   },
   "scripts": {
+    "coverage": [
+      "@putenv XDEBUG_MODE=coverage",
+      "phpunit --coverage-html doc"
+    ],
     "phpunit": "phpunit ./tests/",
     "test": "phpunit --colors=always --testdox"
   }
