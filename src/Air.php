@@ -165,7 +165,7 @@ class Air
      * @url https://rechneronline.de/air/wet-bulb-temperature.php
      * @param float $temperatureInCelsius
      * @param float $humidityInPercent
-     * @return float|string
+     * @return float
      */
     public function wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent): float
     {
