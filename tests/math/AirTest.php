@@ -51,6 +51,23 @@ class AirTest extends TestCase
         );
     }
 
+    public function testCalculateAbsoluteHumidityWrongValues(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->assertEquals(
+            1.26,
+            $this->air->calculateAbsoluteHumidity(38.9, -5.0)
+        );
+        $this->assertEquals(
+            1.26,
+            $this->air->calculateAbsoluteHumidity(38.9, 65)
+        );
+        $this->assertEquals(
+            1.26,
+            $this->air->calculateAbsoluteHumidity(38.9, 65, true, false)
+        );
+    }
+
     /**
      * @return void
      */
@@ -182,6 +199,14 @@ class AirTest extends TestCase
         $this->assertEquals(
             1.173,
             $this->air->density(22, 999, 51)
+        );
+        $this->assertEquals(
+            0.006,
+            $this->air->density(22, 10, 51)
+        );
+        $this->assertEquals(
+            1.269,
+            $this->air->density(22, 1080, 51)
         );
     }
 }

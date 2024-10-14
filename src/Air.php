@@ -16,14 +16,15 @@ class Air
      * @param float $temperature
      * @param bool $temperatureInFahrenheit
      * @param bool $isRelativeHumidityInPercent
-     * @return float|null
+     * @return float
+     * @throws InvalidArgumentException
      */
     public function calculateAbsoluteHumidity(
         float $relativeHumidity,
         float $temperature,
         bool  $temperatureInFahrenheit = false,
         bool  $isRelativeHumidityInPercent = true
-    ): ?float
+    ): float
     {
         /*
         * Computes absolute humidity from relative humidity and temperature.
@@ -54,11 +55,11 @@ class Air
 
         if ($isRelativeHumidityInPercent) {
             if ($relativeHumidity < 1 || $relativeHumidity > 100) {
-                return null;
+                throw new \InvalidArgumentException("Relative Humidity In Percent has to be between 1 and 100");
             }
             $relativeHumidity /= 100.0;
         } elseif ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
-            return null;
+            throw new \InvalidArgumentException("Relative Humidity has to be between 0.01 and 1.0");
         }
 
         $temperatureInCelsius = $temperature;
@@ -67,7 +68,7 @@ class Air
         }
 
         if ($temperatureInCelsius < 1 || $temperatureInCelsius > 60) {
-            return null;
+            throw new \InvalidArgumentException("Temperature In Celsius has to be between 1 and 60");
         }
 
         $temperatureInKelvin = $temperatureInCelsius + 273.15;
@@ -210,9 +211,13 @@ class Air
      * @param float $airPressure in hPa
      * @param float $relativeHumidityInPercent
      * @return float Air density in kg/m³
+     * @throws InvalidArgumentException
      */
     public function density(float $temperatureInCelsius, float $airPressure, float $relativeHumidityInPercent): float
     {
+        if ( $airPressure < 10) {
+            throw new InvalidArgumentException("Air Pressure has to be larger than 10 hPa");
+        }
         $saturationVaporPressure = $this->saturationVaporPressure($temperatureInCelsius);
         $moistAir = 287.058 / (1 - ($relativeHumidityInPercent) * $saturationVaporPressure / ($airPressure * 100) * (1 - 287.058 / 461.523));
         return round(($airPressure / $moistAir / ($temperatureInCelsius + 273.15) * 100), 3);
