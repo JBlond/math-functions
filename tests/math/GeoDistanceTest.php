@@ -62,7 +62,7 @@ class GeoDistanceTest extends TestCase
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
-            9075314.74469208,
+            9075314.744692078,
             $distance->haversine(
             // Hamburg
                 53.553406,

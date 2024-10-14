@@ -66,6 +66,10 @@ class AirTest extends TestCase
             1.26,
             $this->air->calculateAbsoluteHumidity(38.9, 65, true, false)
         );
+        $this->assertEquals(
+            1.2886482972377484,
+            $this->air->calculateAbsoluteHumidity(22, 37, true)
+        );
     }
 
     /**
@@ -73,22 +77,54 @@ class AirTest extends TestCase
      */
     public function testCalculateAbsoluteHumidityErrors(): void
     {
-        $this->assertEquals(
-            [
+        try {
+            $this->assertEquals(
                 null,
-                null,
-                null,
-                1.2886482972377484,
-                null
-            ],
-            [
-                $this->air->calculateAbsoluteHumidity(38.88, 101),
-                $this->air->calculateAbsoluteHumidity(105, 37),
-                $this->air->calculateAbsoluteHumidity(0.005, 37),
-                $this->air->calculateAbsoluteHumidity(22, 37, true),
                 $this->air->calculateAbsoluteHumidity(36, 37, false, false)
-            ]
-        );
+            );
+
+        } Catch (InvalidArgumentException $exception) {
+            $this->assertSame(
+                'Relative Humidity has to be between 0.01 and 1.0',
+                $exception->getMessage()
+            );
+        }
+        try {
+            $this->assertEquals(
+                null,
+                $this->air->calculateAbsoluteHumidity(38.88, 101)
+            );
+
+        } Catch (InvalidArgumentException $exception) {
+            $this->assertSame(
+                'Temperature In Celsius has to be between 1 and 60',
+                $exception->getMessage()
+            );
+        }
+        try {
+            $this->assertEquals(
+                null,
+                $this->air->calculateAbsoluteHumidity(105, 37)
+            );
+
+        } Catch (InvalidArgumentException $exception) {
+            $this->assertSame(
+                'Relative Humidity In Percent has to be between 1 and 100',
+                $exception->getMessage()
+            );
+        }
+        try {
+            $this->assertEquals(
+                null,
+                $this->air->calculateAbsoluteHumidity(0.005, 37)
+            );
+
+        } Catch (InvalidArgumentException $exception) {
+            $this->assertSame(
+                'Relative Humidity In Percent has to be between 1 and 100',
+                $exception->getMessage()
+            );
+        }
     }
 
     /**
