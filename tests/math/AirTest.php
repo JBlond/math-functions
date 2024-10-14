@@ -49,6 +49,10 @@ class AirTest extends TestCase
             8.303848131655354,
             $this->air->calculateAbsoluteHumidity(38.88, 23.70)
         );
+        $this->assertEquals(
+            8.314341426841624,
+            $this->air->calculateAbsoluteHumidity(38.88, 74.7, true)
+        );
     }
 
     public function testCalculateAbsoluteHumidityWrongValues(): void
@@ -244,5 +248,21 @@ class AirTest extends TestCase
             1.269,
             $this->air->density(22, 1080, 51)
         );
+    }
+
+    public function testDensityException(): void
+    {
+        try {
+            $this->assertEquals(
+                null,
+                $this->air->density(21, 9, 37)
+            );
+
+        } Catch (InvalidArgumentException $exception) {
+            $this->assertSame(
+                'Air Pressure has to be larger than 10 hPa',
+                $exception->getMessage()
+            );
+        }
     }
 }
