@@ -76,7 +76,7 @@ class GeoDistance
         $lon_diff = $lon2 - $lon1;
 
         // apply the Haversine formula
-        $a = sin($lat_diff / 2) * sin($lat_diff / 2) + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
+        $a = (sin($lat_diff / 2) ** 2) + (sin($lon_diff / 2) ** 2) * cos($lat1) * cos($lat2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         return static::earthRadius * $c;
     }
