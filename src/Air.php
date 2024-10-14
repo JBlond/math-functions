@@ -55,11 +55,11 @@ class Air
 
         if ($isRelativeHumidityInPercent) {
             if ($relativeHumidity < 1 || $relativeHumidity > 100) {
-                throw new \InvalidArgumentException("Relative Humidity In Percent has to be between 1 and 100");
+                throw new InvalidArgumentException("Relative Humidity In Percent has to be between 1 and 100");
             }
             $relativeHumidity /= 100.0;
         } elseif ($relativeHumidity < 0.01 || $relativeHumidity > 1) {
-            throw new \InvalidArgumentException("Relative Humidity has to be between 0.01 and 1.0");
+            throw new InvalidArgumentException("Relative Humidity has to be between 0.01 and 1.0");
         }
 
         $temperatureInCelsius = $temperature;
@@ -68,7 +68,7 @@ class Air
         }
 
         if ($temperatureInCelsius < 1 || $temperatureInCelsius > 60) {
-            throw new \InvalidArgumentException("Temperature In Celsius has to be between 1 and 60");
+            throw new InvalidArgumentException("Temperature In Celsius has to be between 1 and 60");
         }
 
         $temperatureInKelvin = $temperatureInCelsius + 273.15;
@@ -190,7 +190,7 @@ class Air
      *  The density of the air is mainly determined by the mass of the column of air above a point on earth.
      *  Around 10 tons of air mass presses down on one square meter of earth at sea level.
      *  We are used to this pressure and have developed under it in the course of evolution,
-     *  so we do not notice it and it is normal for us. The higher you go, i.e. the further you move up from sea level,
+     *  so we do not notice it, and it is normal for us. The higher you go, i.e. the further you move up from sea level,
      *  the lower the mass of the column of air becomes, so the air pressure and thus the air density also decreases.
      *  Temperature and humidity have the following effect: cold objects tend to have a higher density,
      *  this is especially true for air (in contrast to liquid water with its density anomaly, hence the word tend).
