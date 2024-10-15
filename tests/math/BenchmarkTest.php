@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -7,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class BenchmarkTest extends TestCase
 {
-
     private Benchmark $benchmark;
 
     public function getProperty($object, $property)
@@ -22,7 +22,7 @@ class BenchmarkTest extends TestCase
         $this->benchmark = new Benchmark();
     }
 
-    public function testTimerStop():void
+    public function testTimerStop(): void
     {
         $this->benchmark->timerStart('test');
         $this->benchmark->timerStop('test');
@@ -45,7 +45,6 @@ class BenchmarkTest extends TestCase
         $value = $this->getProperty($this->benchmark, 'timingStartTimes');
         $this->assertArrayHasKey('test', $value);
         $this->assertGreaterThan(0, $result);
-
     }
 
     public function testTimerResultZero(): void
@@ -56,6 +55,5 @@ class BenchmarkTest extends TestCase
             0,
             $this->benchmark->timerResult('test')
         );
-
     }
 }

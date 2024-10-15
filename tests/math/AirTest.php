@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -11,7 +12,6 @@ use PHPUnit\Framework\TestCase;
  */
 class AirTest extends TestCase
 {
-
     /**
      * @var Air
      */
@@ -32,7 +32,7 @@ class AirTest extends TestCase
     {
         $this->assertEquals(
             1.0669572525115663,
-            $this->air->windchill(5,20)
+            $this->air->windchill(5, 20)
         );
         $this->assertEquals(
             30.867764780149933,
@@ -86,8 +86,7 @@ class AirTest extends TestCase
                 null,
                 $this->air->calculateAbsoluteHumidity(36, 37, false, false)
             );
-
-        } Catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->assertSame(
                 'Relative Humidity has to be between 0.01 and 1.0',
                 $exception->getMessage()
@@ -98,8 +97,7 @@ class AirTest extends TestCase
                 null,
                 $this->air->calculateAbsoluteHumidity(38.88, 101)
             );
-
-        } Catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->assertSame(
                 'Temperature In Celsius has to be between 1 and 60',
                 $exception->getMessage()
@@ -110,8 +108,7 @@ class AirTest extends TestCase
                 null,
                 $this->air->calculateAbsoluteHumidity(105, 37)
             );
-
-        } Catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->assertSame(
                 'Relative Humidity In Percent has to be between 1 and 100',
                 $exception->getMessage()
@@ -122,8 +119,7 @@ class AirTest extends TestCase
                 null,
                 $this->air->calculateAbsoluteHumidity(0.005, 37)
             );
-
-        } Catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->assertSame(
                 'Relative Humidity In Percent has to be between 1 and 100',
                 $exception->getMessage()
@@ -191,8 +187,8 @@ class AirTest extends TestCase
                 14.14
             ],
             [
-                $this->air->wetBulbTemperature(21,52),
-                $this->air->wetBulbTemperature(21,47)
+                $this->air->wetBulbTemperature(21, 52),
+                $this->air->wetBulbTemperature(21, 47)
             ]
         );
     }
@@ -257,8 +253,7 @@ class AirTest extends TestCase
                 null,
                 $this->air->density(21, 9, 37)
             );
-
-        } Catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             $this->assertSame(
                 'Air Pressure has to be larger than 10 hPa',
                 $exception->getMessage()

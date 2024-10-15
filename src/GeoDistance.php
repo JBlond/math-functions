@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -8,11 +9,10 @@ namespace jblond\math;
  */
 class GeoDistance
 {
-
     /**
      * @var int the radius of the Earth in meters
      */
-    protected const earthRadius = 6371000;
+    protected const EARTHRADIUS = 6371000;
 
     /**
      * Calculates the great-circle distance between two points, with the Vincenty formula.
@@ -30,8 +30,7 @@ class GeoDistance
         float $latitudeTo,
         float $longitudeTo,
         float $earthRadius = 6371000
-    ):float
-    {
+    ): float {
         // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
@@ -63,8 +62,7 @@ class GeoDistance
         float $lon1,
         float $lat2,
         float $lon2
-    ):float
-    {
+    ): float {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -78,7 +76,7 @@ class GeoDistance
         // apply the Haversine formula
         $a = (sin($lat_diff / 2) ** 2) + (sin($lon_diff / 2) ** 2) * cos($lat1) * cos($lat2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        return static::earthRadius * $c;
+        return static::EARTHRADIUS * $c;
     }
 
     /**
@@ -99,8 +97,7 @@ class GeoDistance
         float $lon1,
         float $lat2,
         float $lon2
-    ): float
-    {
+    ): float {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -112,9 +109,10 @@ class GeoDistance
         $lon_diff = $lon2 - $lon1;
 
         // apply the Great Circle formula
-        $a = sin($lat_diff / 2) * sin($lat_diff / 2) + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
+        $a = sin($lat_diff / 2) * sin($lat_diff / 2)
+            + cos($lat1) * cos($lat2) * sin($lon_diff / 2) * sin($lon_diff / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        return static::earthRadius * $c;
+        return static::EARTHRADIUS * $c;
     }
 
     /**
@@ -129,13 +127,12 @@ class GeoDistance
      * @param float $lon2
      * @return float
      */
-    public  function equirectangularApproximation(
+    public function equirectangularApproximation(
         float $lat1,
         float $lon1,
         float $lat2,
         float $lon2
-    ): float
-    {
+    ): float {
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
         $lon1 = deg2rad($lon1);
@@ -145,7 +142,7 @@ class GeoDistance
         // apply the formula
         $x = ($lon2 - $lon1) * cos(($lat1 + $lat2) / 2);
         $y = $lat2 - $lat1;
-        return sqrt($x * $x + $y * $y) * static::earthRadius;
+        return sqrt($x * $x + $y * $y) * static::EARTHRADIUS;
     }
 
     /**
@@ -160,8 +157,7 @@ class GeoDistance
         float $lon1,
         float $lat2,
         float $lon2
-    ): float
-    {
+    ): float {
 
         // convert latitude and longitude to radians
         $lat1 = deg2rad($lat1);
@@ -172,6 +168,6 @@ class GeoDistance
         // apply the formula
         $cos_theta = sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($lon2 - $lon1);
         $theta = acos($cos_theta);
-        return $theta * static::earthRadius;
+        return $theta * static::EARTHRADIUS;
     }
 }

@@ -15,7 +15,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9 || ^10 || ^11",
-    "vimeo/psalm": "^5"
+    "vimeo/psalm": "^5",
+    "squizlabs/php_codesniffer": "*"
   },
   "autoload": {
     "psr-4": {
@@ -36,6 +37,16 @@
       "phpunit --coverage-html doc"
     ],
     "phpunit": "phpunit ./tests/",
-    "test": "phpunit --colors=always --testdox"
+    "test": "phpunit --colors=always --testdox",
+    "formatting": [
+      "phpcs --standard=phpcs.xml -s -p --colors ./src/",
+      "phpcs --standard=phpcs.xml -s -p --colors ./tests/"
+    ]
+  },
+  "scripts-descriptions": {
+    "phpunit": "Run PHPUnit tests",
+    "test": "Run code formatting test and phpunit",
+    "coverage": "Run phpunit code overage",
+    "formatting": "Check Syntax style"
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -35,7 +36,7 @@ class Fibonacci
         if ($number === 0 || $number === 1) {
             return $number;
         }
-        return $this->recursion($number -1 ) + $this->recursion($number -2);
+        return $this->recursion($number - 1) + $this->recursion($number - 2);
     }
 
     /**

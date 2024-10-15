@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -8,7 +9,6 @@ namespace jblond\math;
  */
 class Circle
 {
-
     /**
      * @var Numbers
      */
@@ -75,7 +75,7 @@ class Circle
      * @param float $c
      * @return float
      */
-    public function  circumferenceToRadius(float $c): float
+    public function circumferenceToRadius(float $c): float
     {
         return $c / $this->math->tau;
     }

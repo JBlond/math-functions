@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -7,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class SphereTest extends TestCase
 {
-
     /**
      * @var Sphere
      */
@@ -18,7 +18,7 @@ class SphereTest extends TestCase
      */
     public function setUp(): void
     {
-       $this->sphere = new Sphere();
+        $this->sphere = new Sphere();
     }
 
     /**

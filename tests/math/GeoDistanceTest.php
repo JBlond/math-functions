@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -10,7 +11,6 @@ use PHPUnit\Framework\TestCase;
  */
 class GeoDistanceTest extends TestCase
 {
-
     /**
      * Should be like https://www.luftlinie.org/Hamburg,DEU/M%C3%BCnchen,Bayern,DEU
      * @return void

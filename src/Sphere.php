@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -63,7 +64,7 @@ class Sphere
      */
     public function volume(float $radius): float
     {
-        return (4/3) * $this->math->pi * $radius ** 3;
+        return (4 / 3) * $this->math->pi * $radius ** 3;
     }
 
     /**
@@ -82,7 +83,10 @@ class Sphere
         $toLat = deg2rad($to['lat']);
         $toLng = deg2rad($to['lng']);
         $dLng = $toLng - $fromLng;
-        $heading = atan2(sin($dLng) * cos($toLat), cos($fromLat) * sin($toLat) - sin($fromLat) * cos($toLat) * cos($dLng));
+        $heading = atan2(
+            sin($dLng) * cos($toLat),
+            cos($fromLat) * sin($toLat) - sin($fromLat) * cos($toLat) * cos($dLng)
+        );
 
         return $this->wrap(rad2deg($heading), -180, 180);
     }
@@ -109,5 +113,4 @@ class Sphere
     {
         return ($n >= $min && $n < $max) ? $n : ($this->mod($n - $min, $max - $min) + $min);
     }
-
 }

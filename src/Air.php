@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jblond\math;
@@ -10,7 +11,6 @@ use InvalidArgumentException;
  */
 class Air
 {
-
     /**
      * @param float $relativeHumidity
      * @param float $temperature
@@ -22,10 +22,9 @@ class Air
     public function calculateAbsoluteHumidity(
         float $relativeHumidity,
         float $temperature,
-        bool  $temperatureInFahrenheit = false,
-        bool  $isRelativeHumidityInPercent = true
-    ): float
-    {
+        bool $temperatureInFahrenheit = false,
+        bool $isRelativeHumidityInPercent = true
+    ): float {
         /*
         * Computes absolute humidity from relative humidity and temperature.
         *  Based on the August-Roche-Magnus approximation.
@@ -97,7 +96,10 @@ class Air
             $k3 = 272.62;
         }
 
-        return $k3 * (($k2 * $temperatureInCelsius) / ($k3 + $temperatureInCelsius) + log($humidityInPercent / 100)) / (($k2 * $k3) / ($k3 + $temperatureInCelsius) - log($humidityInPercent / 100));
+        return $k3 * (
+                ($k2 * $temperatureInCelsius) / ($k3 + $temperatureInCelsius) + log($humidityInPercent / 100)
+            ) / (($k2 * $k3) / ($k3 + $temperatureInCelsius) - log($humidityInPercent / 100)
+        );
     }
 
     /**
@@ -108,7 +110,14 @@ class Air
      */
     public function heatIndex(float $temperatureInCelsius, float $humidityInPercent): float
     {
-        return -8.784695 + 1.61139411 * $temperatureInCelsius + 2.338549 * $humidityInPercent - 0.14611605 * $temperatureInCelsius * $humidityInPercent - 0.012308094 * $temperatureInCelsius ** 2 - 0.016424828 * $humidityInPercent ** 2 + 0.002211732 * $temperatureInCelsius ** 2 * $humidityInPercent + 0.00072546 * $temperatureInCelsius * $humidityInPercent ** 2 - 0.000003582 * $temperatureInCelsius ** 2 * $humidityInPercent ** 2;
+        return -8.784695
+            + 1.61139411 * $temperatureInCelsius
+            + 2.338549 * $humidityInPercent
+            - 0.14611605 * $temperatureInCelsius * $humidityInPercent
+            - 0.012308094 * $temperatureInCelsius ** 2 - 0.016424828 * $humidityInPercent ** 2
+            + 0.002211732 * $temperatureInCelsius ** 2 * $humidityInPercent
+            + 0.00072546 * $temperatureInCelsius * $humidityInPercent ** 2
+            - 0.000003582 * $temperatureInCelsius ** 2 * $humidityInPercent ** 2;
     }
 
     /**
@@ -215,11 +224,12 @@ class Air
      */
     public function density(float $temperatureInCelsius, float $airPressure, float $relativeHumidityInPercent): float
     {
-        if ( $airPressure < 10) {
+        if ($airPressure < 10) {
             throw new InvalidArgumentException("Air Pressure has to be larger than 10 hPa");
         }
         $saturationVaporPressure = $this->saturationVaporPressure($temperatureInCelsius);
-        $moistAir = 287.058 / (1 - ($relativeHumidityInPercent) * $saturationVaporPressure / ($airPressure * 100) * (1 - 287.058 / 461.523));
+        $moistAir = 287.058 / (1 - ($relativeHumidityInPercent) * $saturationVaporPressure / ($airPressure * 100)
+                * (1 - 287.058 / 461.523));
         return round(($airPressure / $moistAir / ($temperatureInCelsius + 273.15) * 100), 3);
     }
 }
