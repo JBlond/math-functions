@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace jblond\math;
 
 class Benchmark
 {
-    protected array $timingStartTimes;
-    protected array $timingStopTimes;
+    protected array $timingStartTimes = [];
+    protected array $timingStopTimes = [];
 
 
     /**
