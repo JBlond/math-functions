@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 namespace jblond\math;
 
+/**
+ *
+ */
 class Benchmark
 {
+    /**
+     * @var array
+     */
     protected array $timingStartTimes = [];
+    /**
+     * @var array
+     */
     protected array $timingStopTimes = [];
 
 
