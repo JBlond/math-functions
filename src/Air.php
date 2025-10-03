@@ -11,6 +11,12 @@ use InvalidArgumentException;
  */
 class Air
 {
+    protected $tempateature;
+
+    public function __construct()
+    {
+        $this->tempateature = new Temperature();
+    }
     /**
      * @param float $relativeHumidity
      * @param float $temperature
@@ -209,7 +215,7 @@ class Air
      *
      * Gas constant of moist air: Rf = Rt / [ 1 − φ * E/p * ( 1 − Rt/Rd ) ]
      * With humidity φ between 0 and 1, saturation vapor pressure E in pascals, atmospheric pressure p in pascals, as
-     * the gas constant of dry air Rt = 287.058
+     * the gas constant of dry air Rt = 287.058,
      * and the gas constant of steam Rd = 461.523
      * The unit of the gas constant is J/(kg*k) = Joule / ( Kilogram * Kelvin)
      *
@@ -232,4 +238,200 @@ class Air
                 * (1 - 287.058 / 461.523));
         return round(($airPressure / $moistAir / ($temperatureInCelsius + 273.15) * 100), 3);
     }
+
+
+    /**
+     * Calculate PMV and PPD according to ISO 7730 / ASHRAE 55 (practical implementation)
+     *  PMV (Predicted Mean Vote): Predicted mean rating of a group's
+     *  - thermal sensation (scale −3 to +3: −3 = cold, 0 = neutral, +3 = hot).
+     *    It is calculated from physical conditions (air/radiant temperature, air velocity), clothing, and activity.
+     *
+     *  |Value | Englisch|Deutsch|
+     *  |------|---------|-------|
+     *  | +3   | hot     |  heiß |
+     *  | +2   | warm    | warm  |
+     *  | +1   |slightly warm | etwas warm |
+     *  | 0    | neutral | neutral |
+     *  | −1   | slightly cool | etwas kühl |
+     *  | −2   | cool    | kühl  |
+     *  | −3   | cold    | kalt  |
+     *
+     * PPD (Predicted Percentage of Dissatisfied): Predicted percentage of people dissatisfied with the thermal condition.
+     *       It is a function of PMV; e.g., PMV = 0 → PPD ≈ 5%, |PMV| ≤ 0.5 typically corresponds to PPD ≤ ~10%.
+     *
+     * @param float $temperature - air temperature in °C
+     * @param float $radiantTemperature   - mean radiant temperature in °C (if null, tr = ta)
+     * @param float $velocity  - air velocity in m/s (typical indoor: 0.1 - 0.2)
+     * @param float $relativeHumidity   - relative humidity in % (0-100)
+     * @param float $metabolicRate  - metabolic rate in met (typical seated office: 1.0 - 1.2)
+     * @param float $clothingInsulation  - clothing insulation in clothing ≥0 (typical indoor: 0.5 - 1.0)
+     * @return array      ['PMV'=>float, 'PPD'=>float]
+     */
+    public function iso7730(
+        float $temperature,
+        float $radiantTemperature,
+        float $velocity,
+        float $relativeHumidity,
+        float $metabolicRate,
+        float $clothingInsulation
+    ): array {
+        // Eingangsprüfungen
+        if ($relativeHumidity < 0 || $relativeHumidity > 100) {
+            throw new InvalidArgumentException('Relative Luftfeuchte muss zwischen 0 und 100 liegen.');
+        }
+        if ($metabolicRate <= 0) {
+            throw new InvalidArgumentException('Stoffwechselrate (met) muss größer als 0 sein.');
+        }
+        if ($clothingInsulation < 0) {
+            throw new InvalidArgumentException('Bekleidungswert (clo) darf nicht negativ sein.');
+        }
+
+        // Wasserdampfdruck pa in Pa (Tetens, es in kPa → Pa)
+        $es_kPa = 0.6105 * exp((17.27 * $temperature) / ($temperature + 237.3)); // kPa
+        $pa     = ($relativeHumidity / 100.0) * $es_kPa * 1000.0;            // Pa
+
+        // Umrechnungen
+        $icl = 0.155 * $clothingInsulation;          // m²·K/W
+        $m   = $metabolicRate * 58.15;          // W/m²
+        $w   = 0.0;
+        $mw  = $m - $w;
+
+        // Bekleidungsfaktor Fcl
+        $fcl = ($icl <= 0.078)
+            ? 1.0 + 1.29 * $icl
+            : 1.05 + 0.645 * $icl;
+
+        // Temperaturen in Kelvin
+        $taa = $temperature + 273.15;
+        $tra = $radiantTemperature + 273.15;
+
+        // Stabiler Startwert für Tcl (Achtung: mit Fcl im Nenner!)
+        $hcf  = 12.1 * sqrt(max($velocity, 0.0));
+        $tcla = $taa + (35.5 - $temperature) / (3.5 * ($icl * $fcl + 0.1));
+
+        // Iterationskonstanten
+        $p1 = $icl * $fcl;
+        $p2 = $p1 * 3.96e-8;
+        $p3 = $p1 * 100.0;
+        $p4 = $p1 * $taa;
+        $p5 = 308.7 - 0.028 * $mw + $p2 * pow($tra, 4);
+
+        // Iteration
+        $xn  = $tcla / 100.0;
+        $xf  = $xn;
+        $eps = 0.00015;
+        $hc  = $hcf;
+
+        for ($n = 0; $n < 150; $n++) {
+            $xf  = $xn;
+            $hcn = 2.38 * pow(abs(100.0 * $xf - $taa), 0.25);
+            $hc  = max($hcf, $hcn);
+            $xn  = ($p5 + $p4 * $hc - $p2 * pow(100.0 * $xf, 4)) / (100.0 + $p3 * $hc);
+            if (abs($xn - $xf) <= $eps) {
+                break;
+            }
+        }
+
+        $tcl = 100.0 * $xn - 273.15;
+
+        // Wärmeverluste (ISO/ASHRAE)
+        $hl1 = 3.05 * (5.733 - 0.007 * $mw - 0.001 * $pa);   // Haut-Diffusion (pa in kPa → 0.001*Pa)
+        $hl2 = ($mw > 58.15) ? 0.42 * ($mw - 58.15) : 0.0;   // Schweißverdunstung
+        $hl3 = 1.7e-5 * $m * (5867.0 - $pa);                 // Respiration latent (Pa)
+        $hl4 = 0.0014 * $m * (34.0 - $temperature);                   // Respiration sensibel
+        $hl5 = 3.96e-8 * $fcl * (pow($tcl + 273.15, 4) - pow($tra, 4)); // Strahlung
+        $hc  = max(12.1 * sqrt(max($velocity, 0.0)), 2.38 * pow(abs($tcl - $temperature), 0.25));
+        $hl6 = $fcl * $hc * ($tcl - $temperature);                    // Konvektion
+
+        // PMV
+        $pmv = (0.303 * exp(-0.036 * $m) + 0.028) * ($mw - $hl1 - $hl2 - $hl3 - $hl4 - $hl5 - $hl6);
+
+        // PPD
+        $ppd = 100.0 - 95.0 * exp(-0.03353 * pow($pmv, 4) - 0.2179 * pow($pmv, 2));
+
+        return [
+            'PMV' => round($pmv, 3),
+            'PPD' => round($ppd, 1),
+        ];
+    }
+
+
+
+    /**
+     * Berechnet PMV und PPD nach ISO 7730 und prüft Komfort.
+     *
+     * @param float $ta  Lufttemperatur [°C]
+     * @param float $tr  Strahlungstemperatur [°C]
+     * @param float $vel Luftgeschwindigkeit [m/s]
+     * @param float $rh  relative Luftfeuchtigkeit [%]
+     * @param float $met Aktivität [Met]
+     * @param float $clo Bekleidung [Clo]
+     * @return array ['Comfortable' => bool, 'PMV' => float, 'PPD' => float, 'Details' => array]
+     */
+    function iso7730ComfortCheck(
+        float $ta,
+        float $tr,
+        float $vel,
+        float $rh,
+        float $met,
+        float $clo
+    ): array {
+        // Konstanten
+        $pa = $rh * 10 * exp(16.6536 - 4030.183 / ($ta + 235)); // Dampfdruck in Pa
+
+        $icl = 0.155 * $clo; // Isolierung Kleidung [m²K/W]
+        $m = $met * 58.15;   // Stoffwechselrate [W/m²]
+        $w = 0;               // externe Arbeit, meist 0
+
+        $mw = $m - $w;        // effektive metabolische Rate
+
+        $tcl = $ta + (35.5 - $ta) / (3.5 * $clo + 0.1); // initiale Kleidungstemperatur
+        $tcl_old = $tcl;
+
+        // Iteration zur Bestimmung von tcl
+        for ($i = 0; $i < 100; $i++) {
+            $hc = max(2.38 * (abs($tcl - $ta) ** 0.25), 12.1 * sqrt($vel)); // Wärmeübergangskoeffizient
+            $tcl_new = $ta + ($m - 3.05 * 0.001 * (5733 - 6.99 * $mw - $pa) - 0.42 * ($mw - 58.15) -
+                    1.7 * 0.00001 * $m * (5867 - $pa) - 0.0014 * $m * (34 - $ta) -
+                    3.96e-8 * $icl * (($tcl + 273) ** 4) + 3.96e-8 * $icl * (($tr + 273) ** 4)
+                ) / (3.96e-8 * $icl * 4 * (($tcl + 273) ** 3) + $icl * $hc);
+
+            // Abbruch, wenn Änderung klein
+            if (abs($tcl_new - $tcl) < 0.001) break;
+
+            // Begrenzung physikalisch sinnvoll
+            $tcl = min(max($tcl_new, 10), 50);
+        }
+
+        // PMV-Berechnung
+        $m_w = $mw;
+        $pmv = (0.303 * exp(-0.036 * $m_w) + 0.028) * (
+                $m_w - 3.05 * 0.001 * (5733 - 6.99 * $m_w - $pa)
+                - 0.42 * ($m_w - 58.15)
+                - 1.7 * 0.00001 * $m_w * (5867 - $pa)
+                - 0.0014 * $m_w * ($ta - 34)
+                - 3.96e-8 * $icl * ((($tcl + 273) ** 4) - (($tr + 273) ** 4))
+                - $hc * ($tcl - $ta)
+            );
+
+        // PPD
+        $ppd = 100 - 95 * exp(-0.03353 * ($pmv ** 4) - 0.2179 * ($pmv ** 2));
+
+        $comfortable = ($pmv > -0.5 && $pmv < 0.5) && ($ppd < 10);
+
+        return [
+            'Comfortable' => $comfortable,
+            'PMV' => $pmv,
+            'PPD' => $ppd,
+            'Details' => [
+                'PMV_OK' => ($pmv > -0.5 && $pmv < 0.5),
+                'PPD_OK' => ($ppd < 10),
+                'Iterations' => $i + 1,
+                'tcl' => $tcl,
+                'hc' => $hc
+            ]
+        ];
+    }
+
+
 }
