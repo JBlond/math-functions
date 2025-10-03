@@ -71,6 +71,7 @@ Calculates the distance between two points. Choose your function.
  - heatIndexWarning(int $heatIndex)
  - wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent)
  - windchill(float $temperatureInCelsius, float $windSpeedInKmPerHour)
+ - iso7730(float $temperature, float $radiantTemperature, float $velocity, float $relativeHumidity, float $metabolicRate, float $clothingInsulation )
 
 ## Sphere
  - areaOfADisc(float $radius)
