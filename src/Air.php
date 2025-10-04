@@ -11,11 +11,11 @@ use InvalidArgumentException;
  */
 class Air
 {
-    protected $tempateature;
+    protected Temperature $temperature;
 
     public function __construct()
     {
-        $this->tempateature = new Temperature();
+        $this->temperature = new Temperature();
     }
     /**
      * @param float $relativeHumidity
@@ -40,10 +40,10 @@ class Air
         *
         * Args:
         *   relative.humidity: The relative humidity value to be converted.
-        *   temp: Temperature associated with given relative humidity value in Fahrenheit or Celsius.
+        *   temp: Temperature associated with the given relative humidity value in Fahrenheit or Celsius.
         *   Fahrenheit: Is the given temperature in Fahrenheit or Celsius? Default is Celsius.
         *   percent: Is the given relative humidity in percent or decimal form? Default is decimal.
-        *            For example: Decimal 0.10, Percent 10
+        *            For example, Decimal 0.10, Percent 10
         *
         * Returns:
         *   The absolute humidity in cubic grams of water.
@@ -206,20 +206,20 @@ class Air
      *  Around 10 tons of air mass presses down on one square meter of earth at sea level.
      *  We are used to this pressure and have developed under it in the course of evolution,
      *  so we do not notice it, and it is normal for us. The higher you go, i.e. the further you move up from sea level,
-     *  the lower the mass of the column of air becomes, so the air pressure and thus the air density also decreases.
+     *  the lower the mass of the column of air becomes, so the air pressure and thus the air density also decrease.
      *  Temperature and humidity have the following effect: cold objects tend to have a higher density,
      *  this is especially true for air (in contrast to liquid water with its density anomaly, hence the word tend).
-     *  So cold air is denser. High humidity, on the other hand, reduces the density, because water
+     *  So cold air is denser. High humidity, on the other hand, reduces the density because water
      *  (which is present in the air as a gas) has a lower molecular mass than the nitrogen and
      *  oxygen molecules in the air.
      *
-     * Gas constant of moist air: Rf = Rt / [ 1 − φ * E/p * ( 1 − Rt/Rd ) ]
+     * Gas constant of moist air: Rf = Rt / [ 1 − φ * E/p * (1 − Rt/Rd) ]
      * With humidity φ between 0 and 1, saturation vapor pressure E in pascals, atmospheric pressure p in pascals, as
      * the gas constant of dry air Rt = 287.058,
      * and the gas constant of steam Rd = 461.523
-     * The unit of the gas constant is J/(kg*k) = Joule / ( Kilogram * Kelvin)
+     * The unit of the gas constant is J/(kg*k) = Joule / (Kilogram * Kelvin)
      *
-     * Air density = p / ( Rf * T)
+     * Air density = p / (Rf * T)
      * T is the temperature in kelvins = temperature in °C + 273.15
      *
      * @param float $temperatureInCelsius degree Celsius
@@ -246,15 +246,15 @@ class Air
      *  - thermal sensation (scale −3 to +3: −3 = cold, 0 = neutral, +3 = hot).
      *    It is calculated from physical conditions (air/radiant temperature, air velocity), clothing, and activity.
      *
-     *  |Value | Englisch|Deutsch|
-     *  |------|---------|-------|
-     *  | +3   | hot     |  heiß |
-     *  | +2   | warm    | warm  |
+     *  |Value | English      |Deutsch     |
+     *  |------|--------------|------------|
+     *  | +3   | hot          |  heiß      |
+     *  | +2   | warm         | warm       |
      *  | +1   |slightly warm | etwas warm |
-     *  | 0    | neutral | neutral |
-     *  | −1   | slightly cool | etwas kühl |
-     *  | −2   | cool    | kühl  |
-     *  | −3   | cold    | kalt  |
+     *  | 0    | neutral      | neutral    |
+     *  | −1   | slightly cool| etwas kühl |
+     *  | −2   | cool         | kühl       |
+     *  | −3   | cold         | kalt       |
      *
      * PPD (Predicted Percentage of Dissatisfied): Predicted percentage of people dissatisfied with the thermal condition.
      *       It is a function of PMV; e.g., PMV = 0 → PPD ≈ 5%, |PMV| ≤ 0.5 typically corresponds to PPD ≤ ~10%.
@@ -263,8 +263,8 @@ class Air
      * @param float $radiantTemperature   - mean radiant temperature in °C (if null, tr = ta)
      * @param float $velocity  - air velocity in m/s (typical indoor: 0.1 - 0.2)
      * @param float $relativeHumidity   - relative humidity in % (0-100)
-     * @param float $metabolicRate  - metabolic rate in met (typical seated office: 1.0 - 1.2)
-     * @param float $clothingInsulation  - clothing insulation in clothing ≥0 (typical indoor: 0.5 - 1.0)
+     * @param float $metabolicRate  - metabolic rate in met (typical seated office: 1.0-1.2)
+     * @param float $clothingInsulation  - clothing insulation in clothing ≥0 (typical indoor: 0.5-1.0)
      * @return array      ['PMV'=>float, 'PPD'=>float]
      */
     public function iso7730(
@@ -275,7 +275,7 @@ class Air
         float $metabolicRate,
         float $clothingInsulation
     ): array {
-        // Eingangsprüfungen
+        // Input tests
         if ($relativeHumidity < 0 || $relativeHumidity > 100) {
             throw new InvalidArgumentException('Relative Luftfeuchte muss zwischen 0 und 100 liegen.');
         }
@@ -286,47 +286,45 @@ class Air
             throw new InvalidArgumentException('Bekleidungswert (clo) darf nicht negativ sein.');
         }
 
-        // Wasserdampfdruck pa in Pa (Tetens, es in kPa → Pa)
+        // Water vapor pressure pa in Pa (Tetens, es in kPa → Pa)
         $es_kPa = 0.6105 * exp((17.27 * $temperature) / ($temperature + 237.3)); // kPa
         $pa     = ($relativeHumidity / 100.0) * $es_kPa * 1000.0;            // Pa
 
-        // Umrechnungen
+        // Conversions
         $icl = 0.155 * $clothingInsulation;          // m²·K/W
         $m   = $metabolicRate * 58.15;          // W/m²
         $w   = 0.0;
         $mw  = $m - $w;
 
-        // Bekleidungsfaktor Fcl
-        $fcl = ($icl <= 0.078)
+        // Clothing factor Fcl
+        $clothingFactor = ($icl <= 0.078)
             ? 1.0 + 1.29 * $icl
             : 1.05 + 0.645 * $icl;
 
-        // Temperaturen in Kelvin
+        // Temperatures in Kelvin
         $taa = $temperature + 273.15;
         $tra = $radiantTemperature + 273.15;
 
-        // Stabiler Startwert für Tcl (Achtung: mit Fcl im Nenner!)
+        // Stable starting value for Tcl (note: with Fcl in the denominator!)
         $hcf  = 12.1 * sqrt(max($velocity, 0.0));
-        $tcla = $taa + (35.5 - $temperature) / (3.5 * ($icl * $fcl + 0.1));
+        $tcla = $taa + (35.5 - $temperature) / (3.5 * ($icl * $clothingFactor + 0.1));
 
-        // Iterationskonstanten
-        $p1 = $icl * $fcl;
+        // Iteration constants
+        $p1 = $icl * $clothingFactor;
         $p2 = $p1 * 3.96e-8;
         $p3 = $p1 * 100.0;
         $p4 = $p1 * $taa;
-        $p5 = 308.7 - 0.028 * $mw + $p2 * pow($tra, 4);
+        $p5 = 308.7 - 0.028 * $mw + $p2 * ($tra ** 4);
 
         // Iteration
         $xn  = $tcla / 100.0;
-        $xf  = $xn;
         $eps = 0.00015;
-        $hc  = $hcf;
 
         for ($n = 0; $n < 150; $n++) {
             $xf  = $xn;
-            $hcn = 2.38 * pow(abs(100.0 * $xf - $taa), 0.25);
+            $hcn = 2.38 * (abs(100.0 * $xf - $taa) ** 0.25);
             $hc  = max($hcf, $hcn);
-            $xn  = ($p5 + $p4 * $hc - $p2 * pow(100.0 * $xf, 4)) / (100.0 + $p3 * $hc);
+            $xn  = ($p5 + $p4 * $hc - $p2 * ((100.0 * $xf) ** 4)) / (100.0 + $p3 * $hc);
             if (abs($xn - $xf) <= $eps) {
                 break;
             }
@@ -334,20 +332,20 @@ class Air
 
         $tcl = 100.0 * $xn - 273.15;
 
-        // Wärmeverluste (ISO/ASHRAE)
-        $hl1 = 3.05 * (5.733 - 0.007 * $mw - 0.001 * $pa);   // Haut-Diffusion (pa in kPa → 0.001*Pa)
-        $hl2 = ($mw > 58.15) ? 0.42 * ($mw - 58.15) : 0.0;   // Schweißverdunstung
+        // Heat losses (ISO/ASHRAE)
+        $hl1 = 3.05 * (5.733 - 0.007 * $mw - 0.001 * $pa);   // skin-Diffusion (pa in kPa → 0.001*Pa)
+        $hl2 = ($mw > 58.15) ? 0.42 * ($mw - 58.15) : 0.0;   // Sweat evaporation
         $hl3 = 1.7e-5 * $m * (5867.0 - $pa);                 // Respiration latent (Pa)
-        $hl4 = 0.0014 * $m * (34.0 - $temperature);                   // Respiration sensibel
-        $hl5 = 3.96e-8 * $fcl * (pow($tcl + 273.15, 4) - pow($tra, 4)); // Strahlung
-        $hc  = max(12.1 * sqrt(max($velocity, 0.0)), 2.38 * pow(abs($tcl - $temperature), 0.25));
-        $hl6 = $fcl * $hc * ($tcl - $temperature);                    // Konvektion
+        $hl4 = 0.0014 * $m * (34.0 - $temperature);                   // Respiration sensible
+        $hl5 = 3.96e-8 * $clothingFactor * ((($tcl + 273.15) ** 4) - ($tra ** 4)); // Strahlung
+        $hc  = max(12.1 * sqrt(max($velocity, 0.0)), 2.38 * (abs($tcl - $temperature) ** 0.25));
+        $hl6 = $clothingFactor * $hc * ($tcl - $temperature);                    // convection
 
         // PMV
         $pmv = (0.303 * exp(-0.036 * $m) + 0.028) * ($mw - $hl1 - $hl2 - $hl3 - $hl4 - $hl5 - $hl6);
 
         // PPD
-        $ppd = 100.0 - 95.0 * exp(-0.03353 * pow($pmv, 4) - 0.2179 * pow($pmv, 2));
+        $ppd = 100.0 - 95.0 * exp(-0.03353 * ($pmv ** 4) - 0.2179 * ($pmv ** 2));
 
         return [
             'PMV' => round($pmv, 3),
