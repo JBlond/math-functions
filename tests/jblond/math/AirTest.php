@@ -295,4 +295,44 @@ class AirTest extends TestCase
             'critical' => [1600, 'critical'],
         ];
     }
+
+    #[DataProvider('enthalpyProvider')]
+    public function testMoistAirEnthalpy(
+        float $T,
+        float $RH,
+        float $p,
+        float $expectedW,
+        float $expectedH
+    ): void {
+        $w = $this->air->humidityRatio($T, $RH, $p);
+        $h = $this->air->moistAirEnthalpy($T, $RH, $p);
+
+        // Plausibility check with tolerance
+        $this->assertEqualsWithDelta($expectedW, $w, 0.001, "Humidity ratio stimmt nicht");
+        $this->assertEqualsWithDelta($expectedH, $h, 5.0, "Enthalpie stimmt nicht");
+    }
+
+    public static function enthalpyProvider(): array
+    {
+        $p = 101325.0; // Standard pressure Pa
+
+        return [
+            // T [°C], RH [%], pressure [Pa], expected w [kg/kg], expected h [kJ/kg dry air]
+            'Wohnraum 22°C, 45%' => [22.0, 45.0, $p, 0.007, 45.0],
+            'Sommer 30°C, 70%'   => [30.0, 70.0, $p, 0.019, 78.2],
+            'Winter 0°C, 80%'    => [0.0,  80.0, $p, 0.003, 5.0],
+        ];
+    }
+
+    public function testMoistSpecificEnthalpyPerKgMoistAir(): void
+    {
+        $T = 22.0;
+        $RH = 45.0;
+        $p = 101325.0;
+        $hDry  = $this->air->moistAirEnthalpy($T, $RH, $p);
+        $hMoist = $this->air->moistSpecificEnthalpyPerKgMoistAir($T, $RH, $p);
+
+        // hMoist muss etwas kleiner sein als hDry
+        $this->assertLessThan($hDry, $hMoist);
+    }
 }

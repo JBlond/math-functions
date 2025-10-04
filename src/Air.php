@@ -256,8 +256,9 @@ class Air
      *  | −2   | cool         | kühl       |
      *  | −3   | cold         | kalt       |
      *
-     * PPD (Predicted Percentage of Dissatisfied): Predicted percentage of people dissatisfied with the thermal condition.
-     *       It is a function of PMV; e.g., PMV = 0 → PPD ≈ 5%, |PMV| ≤ 0.5 typically corresponds to PPD ≤ ~10%.
+     * PPD (Predicted Percentage of Dissatisfied):
+     * Predicted percentage of people dissatisfied with the thermal condition.
+     * It is a function of PMV; e.g., PMV = 0 → PPD ≈ 5%, |PMV| ≤ 0.5 typically corresponds to PPD ≤ ~10%.
      *
      * @param float $temperature - air temperature in °C
      * @param float $radiantTemperature   - mean radiant temperature in °C (if null, tr = ta)
@@ -408,5 +409,47 @@ class Air
             return $categories[$lang]['poor'];
         }
         return $categories[$lang]['critical'];
+    }
+
+    /**
+     * Humidity ratio w [kg water vapor / kg dry air]
+     *
+     * @param float $temperature °C
+     * @param float $relativeHumidity % (0-100)
+     * @param float $pressure Total pressure in Pa (e.g., 101,325 Pa)
+     */
+    public function humidityRatio(float $temperature, float $relativeHumidity, float $pressure): float
+    {
+        $p_ws = $this->saturationVaporPressure($temperature) * 100.0; // hPa → Pa
+        $p_v = ($relativeHumidity / 100.0) * $p_ws; // Pa (partial pressure of water vapor)
+        // Protection against division by a very small difference:
+        $p_d = max(1.0, $pressure - $p_v); // Pa (dry air)
+        return 0.621945 * ($p_v / $p_d);
+    }
+
+    /**
+     * Specific enthalpy of moist air h [kJ/kg dry air]
+     *
+     * @param float $temperature °C
+     * @param float $relativeHumidity % (0-100)
+     * @param float $pressure Total pressure in Pa (e.g. 101325 Pa)
+     * @return float kJ/kg (based on kg dry air)
+     */
+    public function moistAirEnthalpy(float $temperature, float $relativeHumidity, float $pressure): float
+    {
+        $w = $this->humidityRatio($temperature, $relativeHumidity, $pressure); //kg/kg
+        // h = 1.006*T + w*(2501 + 1.805*T) in kJ/kg dry air
+        return 1.006 * $temperature + $w * (2501.0 + 1.805 * $temperature);
+    }
+
+    /**
+     * Optional: enthalpy based on kg of moist air
+     * h_moist = h_dry / (1 + w)
+     */
+    public function moistSpecificEnthalpyPerKgMoistAir(float $temperature, float $relativeHumidity, float $pressure): float
+    {
+        $w = $this->humidityRatio($temperature, $relativeHumidity, $pressure);
+        $h_dry = 1.006 * $temperature + $w * (2501.0 + 1.805 * $temperature); // kJ/kg dry air
+        return $h_dry / (1.0 + $w); // kJ/kg moist air
     }
 }
