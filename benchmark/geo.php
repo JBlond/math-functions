@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use jblond\math\Benchmark;
@@ -18,7 +19,8 @@ echo $distance->vincenty(
     48.137108,
     11.575382,
     // earth radius in km
-    6371) . ' vincenty' . "\n";
+    6371
+) . ' vincenty' . "\n";
 $benchmark->timerStop('vincenty');
 
 $benchmark->timerStart('haversine');
@@ -29,7 +31,7 @@ echo $distance->haversine(
     // munich
     48.137108,
     11.575382
-    ) . ' haversine' . "\n";
+) . ' haversine' . "\n";
 $benchmark->timerStop('haversine');
 
 $benchmark->timerStart('greatCircle');
@@ -40,7 +42,7 @@ echo $distance->greatCircle(
     // munich
     48.137108,
     11.575382
-    ) . ' greatCircle' . "\n";
+) . ' greatCircle' . "\n";
 $benchmark->timerStop('greatCircle');
 
 $benchmark->timerStart('equirectangularApproximation');
@@ -50,7 +52,8 @@ echo $distance->equirectangularApproximation(
     9.992196,
     // munich
     48.137108,
-    11.575382) . ' equirectangularApproximation' . "\n";
+    11.575382
+) . ' equirectangularApproximation' . "\n";
 $benchmark->timerStop('equirectangularApproximation');
 
 $benchmark->timerStart('cosineLaw');
@@ -61,7 +64,7 @@ echo $distance->cosineLaw(
     // munich
     48.137108,
     11.575382
-    ) . ' cosineLaw' . "\n";
+) . ' cosineLaw' . "\n";
 $benchmark->timerStop('cosineLaw');
 echo "--- timer ---\n";
 echo $benchmark->timerResult('vincenty') . " vincenty\n";

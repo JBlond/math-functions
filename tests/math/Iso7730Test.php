@@ -149,10 +149,10 @@ class Iso7730Test extends TestCase
 
     public function testPmvToWordsEnglish(): void
     {
-        $this->assertEquals('neutral', $this->air->pmvToWords(0.2, 'en'));
-        $this->assertEquals('slightly warm', $this->air->pmvToWords(0.6, 'en'));
-        $this->assertEquals('cool', $this->air->pmvToWords(-1.7, 'en'));
-        $this->assertEquals('hot', $this->air->pmvToWords(3.2, 'en')); // Begrenzung auf +3
+        $this->assertEquals('neutral', $this->air->pmvToWords(0.2));
+        $this->assertEquals('slightly warm', $this->air->pmvToWords(0.6));
+        $this->assertEquals('cool', $this->air->pmvToWords(-1.7));
+        $this->assertEquals('hot', $this->air->pmvToWords(3.2)); // Begrenzung auf +3
     }
 
     public function testPmvToWordsGerman(): void
