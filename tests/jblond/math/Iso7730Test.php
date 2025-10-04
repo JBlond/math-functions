@@ -9,6 +9,10 @@ class Iso7730Test extends TestCase
     /** @var Air */
     private Air $air;
 
+    /**
+     * @override
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->air = new Air();
