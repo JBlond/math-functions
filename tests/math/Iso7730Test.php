@@ -7,14 +7,14 @@ use PHPUnit\Framework\TestCase;
 class Iso7730Test extends TestCase
 {
     /** @var Air */
-    private $air;
+    private Air $air;
 
     protected function setUp(): void
     {
         $this->air = new Air();
     }
 
-    /** Hilfsfunktion: prüft, dass PMV/PPD numerisch sind */
+    /** Auxiliary function: checks that PMV/PPD are numeric */
     private function assertValidResult(array $result): void
     {
         $this->assertArrayHasKey('PMV', $result);
@@ -23,19 +23,19 @@ class Iso7730Test extends TestCase
         $this->assertIsFloat($result['PPD']);
     }
 
-    public function testStandardComfort()
+    public function testStandardComfort(): void
     {
-        // realistischere Büroparameter: etwas mehr Kleidung + leichte Aktivität
+        // more realistic office parameters: a little more clothing and light activity
         $result = $this->air->iso7730(23, 23, 0.1, 50, 1.2, 0.7);
         $this->assertValidResult($result);
 
-        // Erwartung: PMV nahe 0, PPD < 10 %
+        // Expectation: PMV close to 0, PPD < 10%
         $this->assertGreaterThanOrEqual(-0.5, $result['PMV']);
         $this->assertLessThanOrEqual(0.5, $result['PMV']);
         $this->assertLessThanOrEqual(10, $result['PPD']);
     }
 
-    public function testHotScenario()
+    public function testHotScenario(): void
     {
         $result = $this->air->iso7730(30, 30, 0.2, 40, 1.2, 0.5);
         $this->assertValidResult($result);
@@ -43,7 +43,7 @@ class Iso7730Test extends TestCase
         $this->assertGreaterThan(0.5, $result['PMV']);
     }
 
-    public function testColdScenario()
+    public function testColdScenario(): void
     {
         $result = $this->air->iso7730(15, 15, 0.1, 50, 1.0, 0.5);
         $this->assertValidResult($result);
@@ -51,7 +51,7 @@ class Iso7730Test extends TestCase
         $this->assertLessThan(-0.5, $result['PMV']);
     }
 
-    public function testActiveScenario()
+    public function testActiveScenario(): void
     {
         $result = $this->air->iso7730(23, 23, 0.1, 50, 2.0, 0.5);
         $this->assertValidResult($result);
@@ -59,7 +59,7 @@ class Iso7730Test extends TestCase
         $this->assertGreaterThan(0.5, $result['PMV']);
     }
 
-    public function testHighHumidity()
+    public function testHighHumidity(): void
     {
         $baseline = $this->air->iso7730(23, 23, 0.1, 50, 1.0, 0.5);
         $result   = $this->air->iso7730(23, 23, 0.1, 90, 1.0, 0.5);
@@ -68,7 +68,7 @@ class Iso7730Test extends TestCase
         $this->assertGreaterThan($baseline['PMV'], $result['PMV']);
     }
 
-    public function testExtremeCold()
+    public function testExtremeCold(): void
     {
         $result = $this->air->iso7730(-5, -5, 0.1, 50, 1.0, 0.5);
         $this->assertValidResult($result);
@@ -76,7 +76,7 @@ class Iso7730Test extends TestCase
         $this->assertLessThan(-2.0, $result['PMV']);
     }
 
-    public function testExtremeMetabolicRate()
+    public function testExtremeMetabolicRate(): void
     {
         $result = $this->air->iso7730(23, 23, 0.1, 50, 3.0, 0.5);
         $this->assertValidResult($result);
@@ -84,55 +84,55 @@ class Iso7730Test extends TestCase
         $this->assertGreaterThan(1.0, $result['PMV']);
     }
 
-    public function testSummerScenario()
+    public function testSummerScenario(): void
     {
-        // Sommer: leichte Kleidung, Büroarbeit
+        // Summer: light clothing, office work
         $result = $this->air->iso7730(26, 26, 0.1, 50, 1.2, 0.4);
         $this->assertValidResult($result);
 
-        // Erwartung: leicht positiver PMV
+        // Expectation: slightly positive PMV
         $this->assertGreaterThan(0.0, $result['PMV']);
         $this->assertLessThan(1.0, $result['PMV']);
     }
 
-    public function testWinterScenario()
+    public function testWinterScenario(): void
     {
-        // Winter: wärmere Kleidung, Büroarbeit
+        // Winter: warmer clothing, office work
         $result = $this->air->iso7730(20, 20, 0.1, 50, 1.2, 1.0);
         $this->assertValidResult($result);
 
-        // Erwartung: PMV nahe 0
+        // Expectation: PMV close to 0
         $this->assertGreaterThanOrEqual(-0.5, $result['PMV']);
         $this->assertLessThanOrEqual(0.5, $result['PMV']);
     }
 
-    public function testWalkingScenario()
+    public function testWalkingScenario(): void
     {
-        // Gehen mit 4 km/h, leichte Kleidung
+        //Walking at 4 km/h, light clothing
         $result = $this->air->iso7730(23, 23, 0.1, 50, 2.0, 0.5);
         $this->assertValidResult($result);
 
-        // Erwartung: deutlich positiver PMV
+        // Expectation: significantly positive PMV
         $this->assertGreaterThan(0.5, $result['PMV']);
     }
 
-    public function testHeavyWorkScenario()
+    public function testHeavyWorkScenario(): void
     {
-        // Schwerarbeit bei moderater Temperatur
+        // Hard work at moderate temperatures
         $result = $this->air->iso7730(20, 20, 0.2, 50, 4.0, 0.6);
         $this->assertValidResult($result);
 
-        // Erwartung: sehr hoher PMV
+        // Expectation: very high PMV
         $this->assertGreaterThan(2.0, $result['PMV']);
     }
 
-    public function testLightClothingCoolRoom()
+    public function testLightClothingCoolRoom(): void
     {
-        // Kühle Umgebung mit zu leichter Kleidung
+        // Cool environment with too light clothing
         $result = $this->air->iso7730(19, 19, 0.1, 50, 1.0, 0.3);
         $this->assertValidResult($result);
 
-        // Erwartung: negativer PMV
+        // Expectation: negative PMV
         $this->assertLessThan(-0.5, $result['PMV']);
     }
 }

@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace jblond\math;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 
 class BenchmarkTest extends TestCase
 {
     private Benchmark $benchmark;
 
+    /**
+     * @throws ReflectionException
+     */
     public function getProperty($object, $property)
     {
-        $reflectedClass = new \ReflectionClass($object);
+        $reflectedClass = new ReflectionClass($object);
         $reflection = $reflectedClass->getProperty($property);
         $reflection->setAccessible(true);
         return $reflection->getValue($object);
@@ -22,6 +27,9 @@ class BenchmarkTest extends TestCase
         $this->benchmark = new Benchmark();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testTimerStop(): void
     {
         $this->benchmark->timerStart('test');
@@ -30,6 +38,9 @@ class BenchmarkTest extends TestCase
         $this->assertArrayHasKey('test', $value);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testTimerStart(): void
     {
         $this->benchmark->timerStart('test');
@@ -37,6 +48,9 @@ class BenchmarkTest extends TestCase
         $this->assertArrayHasKey('test', $value);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testTimerResult(): void
     {
         $this->benchmark->timerStart('test');

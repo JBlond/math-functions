@@ -156,7 +156,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDewPointNeagetiveValue(): void
+    public function testDewPointNegativeValue(): void
     {
         $this->assertEquals(
             -15.611763340547643,

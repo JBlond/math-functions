@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace jblond\math;
 
 use PHPUnit\Framework\TestCase;
+use ValueError;
 
 /**
  *
@@ -63,7 +64,7 @@ class FibonacciTest extends TestCase
      */
     public function testRecursionException(): void
     {
-        $this->expectException(\ValueError::class);
+        $this->expectException(ValueError::class);
         $this->assertEquals(
             5,
             $this->fibonacci->recursion(-2)
@@ -75,7 +76,7 @@ class FibonacciTest extends TestCase
      */
     public function testFibonacciWithBinetFormulaException(): void
     {
-        $this->expectException(\ValueError::class);
+        $this->expectException(ValueError::class);
         $this->assertEquals(
             [],
             $this->fibonacci->fibonacciWithBinetFormula(-2)

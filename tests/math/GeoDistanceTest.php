@@ -119,7 +119,7 @@ class GeoDistanceTest extends TestCase
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
-            // 9075.31474469208 is the true value. Equirectangular Approximation is no very accurate
+            // 9075.31474469208 is the true value. Equirectangular Approximation is not very accurate
             10517193.640868774,
             $distance->equirectangularApproximation(
             // Hamburg
