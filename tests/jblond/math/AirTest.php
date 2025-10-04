@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace jblond\math;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -261,9 +262,7 @@ class AirTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider co2ProviderGerman
-     */
+    #[DataProvider('co2ProviderGerman')]
     public function testCo2CategoryGerman(int $ppm, string $expected)
     {
         $result = $this->air->co2Category($ppm, 'de');
@@ -280,9 +279,7 @@ class AirTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider co2ProviderEnglish
-     */
+    #[DataProvider('co2ProviderEnglish')]
     public function testCo2CategoryEnglish(int $ppm, string $expected)
     {
         $result = $this->air->co2Category($ppm, 'en');
