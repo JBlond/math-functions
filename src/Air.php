@@ -381,4 +381,32 @@ class Air
         return $map[$rounded][$lang] ?? (string) $rounded;
     }
 
+    public function co2Category(int $ppm, string $lang = 'de'): string
+    {
+        $categories = [
+            'de' => [
+                'excellent' => 'sehr gut',
+                'good'      => 'akzeptabel',
+                'poor'      => 'schlecht',
+                'critical'  => 'kritisch'
+            ],
+            'en' => [
+                'excellent' => 'excellent',
+                'good'      => 'acceptable',
+                'poor'      => 'poor',
+                'critical'  => 'critical'
+            ]
+        ];
+
+        if ($ppm < 800) {
+            return $categories[$lang]['excellent'];
+        }
+        if ($ppm < 1000) {
+            return $categories[$lang]['good'];
+        }
+        if ($ppm < 1400) {
+            return $categories[$lang]['poor'];
+        }
+        return $categories[$lang]['critical'];
+    }
 }

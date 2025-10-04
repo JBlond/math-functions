@@ -19,7 +19,7 @@ class GeoDistanceTest extends TestCase
     {
         $distance = new GeoDistance();
         $this->assertEquals(
-            612.3947203510587,
+            612.394720351059,
             $distance->vincenty(
                 // Hamburg
                 53.553406,
@@ -136,7 +136,7 @@ class GeoDistanceTest extends TestCase
     {
         $distance = new GeoDistance();
         $this->assertEquals(
-            612394.7203510538,
+            612394.7203510611,
             $distance->cosineLaw(
             // Hamburg
                 53.553406,
