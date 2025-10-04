@@ -131,7 +131,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testHeatIndex() : void
+    public function testHeatIndex(): void
     {
         $this->assertEquals(
             37.667048499999986,
@@ -146,7 +146,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDewPoint() : void
+    public function testDewPoint(): void
     {
         $this->assertEquals(
             8.872471490029255,
@@ -157,7 +157,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDewPointNegativeValue() : void
+    public function testDewPointNegativeValue(): void
     {
         $this->assertEquals(
             -15.611763340547643,
@@ -168,7 +168,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testsSaturationVaporPressure() : void
+    public function testsSaturationVaporPressure(): void
     {
         $this->assertEquals(
             56.31158977575452,
@@ -180,7 +180,7 @@ class AirTest extends TestCase
      *
      * @return void
      */
-    public function testWetBulbTemperature() : void
+    public function testWetBulbTemperature(): void
     {
         $this->assertEquals(
             [
@@ -197,7 +197,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testWetBulbTemperatureException() : void
+    public function testWetBulbTemperatureException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->air->wetBulbTemperature(-21, 50);
@@ -206,7 +206,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testHeatIndexWarning() : void
+    public function testHeatIndexWarning(): void
     {
         $this->assertEquals(
             [
@@ -231,7 +231,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDensity() : void
+    public function testDensity(): void
     {
         $this->assertEquals(
             1.173,
@@ -247,7 +247,7 @@ class AirTest extends TestCase
         );
     }
 
-    public function testDensityException() : void
+    public function testDensityException(): void
     {
         try {
             $this->assertEquals(
