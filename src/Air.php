@@ -352,4 +352,33 @@ class Air
             'PPD' => round($ppd, 1),
         ];
     }
+
+    /**
+     * Map PMV value to verbal thermal sensation according to ISO 7730
+     *
+     * @param float $pmv - Predicted Mean Vote (−3 bis +3)
+     * @param string $lang - 'en' oder 'de'
+     * @return string
+     */
+    public function pmvToWords(float $pmv, string $lang = 'en'): string
+    {
+        // Rounding to the nearest whole number (−3 to +3)
+        $rounded = (int) round($pmv);
+
+        // Limitation to the valid area
+        $rounded = max(-3, min(3, $rounded));
+
+        $map = [
+            -3 => ['en' => 'cold',           'de' => 'kalt'],
+            -2 => ['en' => 'cool',           'de' => 'kühl'],
+            -1 => ['en' => 'slightly cool',  'de' => 'etwas kühl'],
+            0 => ['en' => 'neutral',        'de' => 'neutral'],
+            1 => ['en' => 'slightly warm',  'de' => 'etwas warm'],
+            2 => ['en' => 'warm',           'de' => 'warm'],
+            3 => ['en' => 'hot',            'de' => 'heiß'],
+        ];
+
+        return $map[$rounded][$lang] ?? (string) $rounded;
+    }
+
 }

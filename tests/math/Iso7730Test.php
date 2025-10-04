@@ -135,4 +135,42 @@ class Iso7730Test extends TestCase
         // Expectation: negative PMV
         $this->assertLessThan(-0.5, $result['PMV']);
     }
+
+    public function testIso7730ReturnsArrayWithKeys(): void
+    {
+        $result = $this->air->iso7730(22, 22, 0.1, 50, 1.2, 0.7);
+
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('PMV', $result);
+        $this->assertArrayHasKey('PPD', $result);
+        $this->assertIsFloat($result['PMV']);
+        $this->assertIsFloat($result['PPD']);
+    }
+
+    public function testPmvToWordsEnglish(): void
+    {
+        $this->assertEquals('neutral', $this->air->pmvToWords(0.2, 'en'));
+        $this->assertEquals('slightly warm', $this->air->pmvToWords(0.6, 'en'));
+        $this->assertEquals('cool', $this->air->pmvToWords(-1.7, 'en'));
+        $this->assertEquals('hot', $this->air->pmvToWords(3.2, 'en')); // Begrenzung auf +3
+    }
+
+    public function testPmvToWordsGerman(): void
+    {
+        $this->assertEquals('neutral', $this->air->pmvToWords(0.2, 'de'));
+        $this->assertEquals('etwas warm', $this->air->pmvToWords(0.6, 'de'));
+        $this->assertEquals('kühl', $this->air->pmvToWords(-1.7, 'de'));
+        $this->assertEquals('kalt', $this->air->pmvToWords(-3.4, 'de')); // Begrenzung auf -3
+    }
+
+    public function testIso7730AndWordsCombined(): void
+    {
+        $result = $this->air->iso7730(22, 22, 0.1, 50, 1.2, 0.7);
+        $word   = $this->air->pmvToWords($result['PMV'], 'de');
+
+        $this->assertIsString($word);
+        $this->assertContains($word, [
+            'kalt','kühl','etwas kühl','neutral','etwas warm','warm','heiß'
+        ]);
+    }
 }
