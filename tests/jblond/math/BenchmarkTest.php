@@ -66,7 +66,7 @@ class BenchmarkTest extends TestCase
         $this->benchmark->timerStop('test');
         $this->benchmark->timerResult('test');
         $this->assertEquals(
-            0,
+            0.0,
             $this->benchmark->timerResult('test')
         );
     }
