@@ -168,7 +168,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testsSaturationVaporPressure(): void
+    public function testSaturationVaporPressure(): void
     {
         $this->assertEquals(
             56.31158977575452,
