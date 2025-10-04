@@ -21,7 +21,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->air = new Air();
     }
@@ -29,7 +29,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testWindchill() : void
+    public function testWindchill(): void
     {
         $this->assertEquals(
             1.0669572525115663,
@@ -44,7 +44,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testCalculateAbsoluteHumidity() : void
+    public function testCalculateAbsoluteHumidity(): void
     {
         $this->assertEquals(
             8.303848131655354,
@@ -56,7 +56,7 @@ class AirTest extends TestCase
         );
     }
 
-    public function testCalculateAbsoluteHumidityWrongValues() : void
+    public function testCalculateAbsoluteHumidityWrongValues(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->assertEquals(
@@ -80,7 +80,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testCalculateAbsoluteHumidityErrors() : void
+    public function testCalculateAbsoluteHumidityErrors(): void
     {
         try {
             $this->assertEquals(
