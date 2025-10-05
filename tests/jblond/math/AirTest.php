@@ -21,7 +21,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->air = new Air();
     }
@@ -29,7 +29,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testWindchill() : void
+    public function testWindchill(): void
     {
         $this->assertEquals(
             1.0669572525115663,
@@ -44,7 +44,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testCalculateAbsoluteHumidity() : void
+    public function testCalculateAbsoluteHumidity(): void
     {
         $this->assertEquals(
             8.303848131655354,
@@ -56,7 +56,7 @@ class AirTest extends TestCase
         );
     }
 
-    public function testCalculateAbsoluteHumidityWrongValues() : void
+    public function testCalculateAbsoluteHumidityWrongValues(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->assertEquals(
@@ -80,7 +80,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testCalculateAbsoluteHumidityErrors() : void
+    public function testCalculateAbsoluteHumidityErrors(): void
     {
         try {
             $this->assertEquals(
@@ -131,7 +131,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testHeatIndex() : void
+    public function testHeatIndex(): void
     {
         $this->assertEquals(
             37.667048499999986,
@@ -146,7 +146,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDewPoint() : void
+    public function testDewPoint(): void
     {
         $this->assertEquals(
             8.872471490029255,
@@ -157,7 +157,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDewPointNegativeValue() : void
+    public function testDewPointNegativeValue(): void
     {
         $this->assertEquals(
             -15.611763340547643,
@@ -168,7 +168,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testSaturationVaporPressure() : void
+    public function testSaturationVaporPressure(): void
     {
         $this->assertEquals(
             56.31158977575452,
@@ -180,7 +180,7 @@ class AirTest extends TestCase
      *
      * @return void
      */
-    public function testWetBulbTemperature() : void
+    public function testWetBulbTemperature(): void
     {
         $this->assertEquals(
             [
@@ -197,7 +197,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testWetBulbTemperatureException() : void
+    public function testWetBulbTemperatureException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->air->wetBulbTemperature(-21, 50);
@@ -206,7 +206,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testHeatIndexWarning() : void
+    public function testHeatIndexWarning(): void
     {
         $this->assertEquals(
             [
@@ -231,7 +231,7 @@ class AirTest extends TestCase
     /**
      * @return void
      */
-    public function testDensity() : void
+    public function testDensity(): void
     {
         $this->assertEquals(
             1.173,
@@ -247,7 +247,7 @@ class AirTest extends TestCase
         );
     }
 
-    public function testDensityException() : void
+    public function testDensityException(): void
     {
         try {
             $this->assertEquals(
@@ -263,13 +263,13 @@ class AirTest extends TestCase
     }
 
     #[DataProvider('co2ProviderGerman')]
-    public function testCo2CategoryGerman(int $ppm, string $expected)
+    public function testCo2CategoryGerman(int $ppm, string $expected): void
     {
         $result = $this->air->co2Category($ppm, 'de');
         $this->assertSame($expected, $result, "Fehler bei $ppm ppm (de)");
     }
 
-    public static function co2ProviderGerman() : array
+    public static function co2ProviderGerman(): array
     {
         return [
             'sehr gut' => [600, 'sehr gut'],
@@ -280,13 +280,13 @@ class AirTest extends TestCase
     }
 
     #[DataProvider('co2ProviderEnglish')]
-    public function testCo2CategoryEnglish(int $ppm, string $expected)
+    public function testCo2CategoryEnglish(int $ppm, string $expected): void
     {
         $result = $this->air->co2Category($ppm, 'en');
         $this->assertSame($expected, $result, "Error at $ppm ppm (en)");
     }
 
-    public static function co2ProviderEnglish() : array
+    public static function co2ProviderEnglish(): array
     {
         return [
             'excellent' => [600, 'excellent'],
@@ -303,7 +303,7 @@ class AirTest extends TestCase
         float $p,
         float $expectedW,
         float $expectedH
-    ) : void {
+    ): void {
         $w = $this->air->humidityRatio($T, $RH, $p);
         $h = $this->air->moistAirEnthalpy($T, $RH, $p);
 
@@ -312,7 +312,7 @@ class AirTest extends TestCase
         $this->assertEqualsWithDelta($expectedH, $h, 5.0, "Enthalpie stimmt nicht");
     }
 
-    public static function enthalpyProvider() : array
+    public static function enthalpyProvider(): array
     {
         $p = 101325.0; // Standard pressure Pa
 
@@ -324,7 +324,7 @@ class AirTest extends TestCase
         ];
     }
 
-    public function testMoistSpecificEnthalpyPerKgMoistAir() : void
+    public function testMoistSpecificEnthalpyPerKgMoistAir(): void
     {
         $T = 22.0;
         $RH = 45.0;
@@ -336,7 +336,7 @@ class AirTest extends TestCase
         $this->assertLessThan($hDry, $hMoist);
     }
 
-    public function testRelativeHumidityTooLowThrows() : void
+    public function testRelativeHumidityTooLowThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Relative Luftfeuchte muss zwischen 0 und 100 liegen.');
@@ -344,7 +344,7 @@ class AirTest extends TestCase
         $this->air->iso7730(22.0, 22.0, 0.1, -5.0, 1.2, 0.5);
     }
 
-    public function testRelativeHumidityTooHighThrows() : void
+    public function testRelativeHumidityTooHighThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Relative Luftfeuchte muss zwischen 0 und 100 liegen.');
@@ -352,7 +352,7 @@ class AirTest extends TestCase
         $this->air->iso7730(22.0, 22.0, 0.1, 120.0, 1.2, 0.5);
     }
 
-    public function testMetabolicRateZeroThrows() : void
+    public function testMetabolicRateZeroThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Stoffwechselrate (met) muss größer als 0 sein.');
@@ -360,7 +360,7 @@ class AirTest extends TestCase
         $this->air->iso7730(22.0, 22.0, 0.1, 50.0, 0.0, 0.5);
     }
 
-    public function testMetabolicRateNegativeThrows() : void
+    public function testMetabolicRateNegativeThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Stoffwechselrate (met) muss größer als 0 sein.');
@@ -368,12 +368,11 @@ class AirTest extends TestCase
         $this->air->iso7730(22.0, 22.0, 0.1, 50.0, -1.0, 0.5);
     }
 
-    public function testClothingInsulationNegativeThrows() : void
+    public function testClothingInsulationNegativeThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Bekleidungswert (clo) darf nicht negativ sein.');
 
         $this->air->iso7730(22.0, 22.0, 0.1, 50.0, 1.2, -0.5);
-
     }
 }
