@@ -446,7 +446,10 @@ class Air
      * Optional: enthalpy based on kg of moist air
      * h_moist = h_dry / (1 + w)
      */
-    public function moistSpecificEnthalpyPerKgMoistAir(float $temperature, float $relativeHumidity, float $pressure): float
+    public function moistSpecificEnthalpyPerKgMoistAir(
+        float $temperature,
+        float $relativeHumidity,
+        float $pressure): float
     {
         $w = $this->humidityRatio($temperature, $relativeHumidity, $pressure);
         $h_dry = 1.006 * $temperature + $w * (2501.0 + 1.805 * $temperature); // kJ/kg dry air
