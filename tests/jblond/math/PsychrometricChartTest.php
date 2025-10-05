@@ -50,4 +50,49 @@ class PsychrometricChartTest extends TestCase
         $this->assertArrayHasKey('T', $points[0]);
         $this->assertArrayHasKey('w', $points[0]);
     }
+
+    public function testStateLineAtTReturnsExpectedNumberOfPoints(): void
+    {
+        $points = $this->chart->stateLineAtT(25.0);
+
+        // RH von 10 bis 100 in 5er-Schritten = 19 Werte
+        $this->assertCount(19, $points);
+
+        // erster und letzter RH prüfen
+        $this->assertSame(10, $points[0]['RH']);
+        $this->assertSame(100, $points[array_key_last($points)]['RH']);
+    }
+
+    public function testStateLineAtTPointsHaveExpectedKeysAndValues(): void
+    {
+        $points = $this->chart->stateLineAtT(20.0);
+
+        foreach ($points as $p) {
+            $this->assertArrayHasKey('RH', $p);
+            $this->assertArrayHasKey('w', $p);
+            $this->assertArrayHasKey('h', $p);
+
+            $this->assertGreaterThanOrEqual(10, $p['RH']);
+            $this->assertLessThanOrEqual(100, $p['RH']);
+
+            $this->assertIsFloat($p['w']);
+            $this->assertIsFloat($p['h']);
+
+            $this->assertGreaterThan(0.0, $p['w'], 'w sollte positiv sein');
+            $this->assertGreaterThan(0.0, $p['h'], 'h sollte positiv sein');
+        }
+    }
+
+    public function testStateLineAtTMonotonicIncreaseOfWWithRH(): void
+    {
+        $points = $this->chart->stateLineAtT(25.0);
+
+        $lastW = null;
+        foreach ($points as $p) {
+            if ($lastW !== null) {
+                $this->assertGreaterThan($lastW, $p['w'], 'w sollte mit RH steigen');
+            }
+            $lastW = $p['w'];
+        }
+    }
 }

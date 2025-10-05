@@ -28,8 +28,7 @@ class PsychrometricChart
         float $Tmin = 0.0,
         float $Tmax = 40.0,
         float $dT = 1.0
-    ): array
-    {
+    ): array {
         $points = [];
         for ($T = $Tmin; $T <= $Tmax; $T += $dT) {
             $w = $this->humidityRatioFromRH($T, $RH, $pPa);
