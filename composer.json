@@ -39,7 +39,10 @@
       "phpunit --coverage-html doc"
     ],
     "phpunit": "phpunit ./tests/",
-    "test": "phpunit --colors=always --testdox",
+    "test": [
+      "@putenv XDEBUG_MODE=coverage",
+      "phpunit --colors=always --testdox"
+    ],
     "formatting": [
       "phpcs --standard=phpcs.xml -s -p --colors ./src/",
       "phpcs --standard=phpcs.xml -s -p --colors ./tests/"
