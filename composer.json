@@ -11,12 +11,14 @@
     }
   ],
   "require": {
-    "php": ">= 8.0",
-    "ext-gd": "*"
+    "php": ">= 8.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9 || ^10 || ^11",
     "squizlabs/php_codesniffer": "*"
+  },
+  "suggest": {
+        "ext-gd": "*"
   },
   "autoload": {
     "psr-4": {
