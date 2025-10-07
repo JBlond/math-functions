@@ -45,7 +45,7 @@ class GeoDistanceTest extends TestCase
                 // earth radius in km
                 6371
             ),
-            0.00000001 // Tolerance
+            0.00000001 // Tolerance ~0.01 mm
         );
     }
 
