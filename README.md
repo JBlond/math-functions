@@ -17,7 +17,7 @@ composer require jblond/math-functions
 
 ## Geo distance
 
-Calculates the distance between two points. Choose your function.
+Calculates the distance between two points. [Choose your function](geodistance.md). 
 
 - vincenty function
   <details><summary>- Parameters</summary>
