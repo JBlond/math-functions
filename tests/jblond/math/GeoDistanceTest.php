@@ -30,7 +30,7 @@ class GeoDistanceTest extends TestCase
                 // earth radius in km
                 6371
             ),
-            0.000001 // Tolerance
+            0.00000001 // Tolerance
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEqualsWithDelta(
@@ -45,7 +45,7 @@ class GeoDistanceTest extends TestCase
                 // earth radius in km
                 6371
             ),
-            0.000001 // Tolerance
+            0.00000001 // Tolerance
         );
     }
 
@@ -137,7 +137,7 @@ class GeoDistanceTest extends TestCase
     public function testCosineLaw(): void
     {
         $distance = new GeoDistance();
-        $this->assertEquals(
+        $this->assertEqualsWithDelta(
             612394.7203510611,
             $distance->cosineLaw(
             // Hamburg
@@ -146,7 +146,8 @@ class GeoDistanceTest extends TestCase
                 // munich
                 48.137108,
                 11.575382
-            )
+            ),
+            0.00000001 // Tolerance
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
         $this->assertEquals(
