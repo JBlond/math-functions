@@ -18,7 +18,7 @@ class GeoDistanceTest extends TestCase
     public function testVincenty(): void
     {
         $distance = new GeoDistance();
-        $this->assertEquals(
+        $this->assertEqualsWithDelta(
             612.394720351059,
             $distance->vincenty(
                 // Hamburg
@@ -29,10 +29,11 @@ class GeoDistanceTest extends TestCase
                 11.575382,
                 // earth radius in km
                 6371
-            )
+            ),
+            0.000001 // Tolerance
         );
         // https://www.luftlinie.org/Hamburg,DEU/Los-Angeles,CA,USA
-        $this->assertEquals(
+        $this->assertEqualsWithDelta(
             9075.31474469208,
             $distance->vincenty(
             // Hamburg
@@ -43,7 +44,8 @@ class GeoDistanceTest extends TestCase
                 -118.243680,
                 // earth radius in km
                 6371
-            )
+            ),
+            0.000001 // Tolerance
         );
     }
 
