@@ -1,13 +1,17 @@
 # Changelog
 
-## Upcoming changes (Undetermined)
+## 1.9.0 (2025-10-04)
 
-* Add AirEnthalpy ([c8566e6][49])
-* Add CO2 ([9a27051][48], [3315f94][47])
-* Add more functions ([00007dd][46])
-* Add plotter ([33056f7][45])
-* Add tests ([f697d78][44], [fd2996e][43],[bce70dc][42], [f61da5c][41])
-* Add xdebug variable ([02edd55][40])
+* Add AirEnthalpy ([c8566e6][54])
+* Add CO2 ([9a27051][53], [3315f94][52])
+* Add changelog generator and changelog ([9fbd717][51])
+* Add geodistance readme ([4a71d57][50])
+* Add more functions ([00007dd][49])
+* Add phpunit version 12 ([90fac90][48])
+* Add plotter ([33056f7][47])
+* Add tests ([f697d78][46], [fd2996e][45],[bce70dc][44], [f61da5c][43])
+* Add xdebug variable ([02edd55][42])
+* Fix: Test ([08ce625][41], [df88502][40])
 * Fix: dark mode for code coverage ([1e54188][39])
 * Fix: gd should be optional ([7951bc8][38])
 * Fix path ([702e6e7][37])
@@ -122,13 +126,18 @@
 [37]:https://github.com/JBlond/math-function/commit/702e6e7
 [38]:https://github.com/JBlond/math-function/commit/7951bc8
 [39]:https://github.com/JBlond/math-function/commit/1e54188
-[40]:https://github.com/JBlond/math-function/commit/02edd55
-[41]:https://github.com/JBlond/math-function/commit/f61da5c
-[42]:https://github.com/JBlond/math-function/commit/bce70dc
-[43]:https://github.com/JBlond/math-function/commit/fd2996e
-[44]:https://github.com/JBlond/math-function/commit/f697d78
-[45]:https://github.com/JBlond/math-function/commit/33056f7
-[46]:https://github.com/JBlond/math-function/commit/00007dd
-[47]:https://github.com/JBlond/math-function/commit/3315f94
-[48]:https://github.com/JBlond/math-function/commit/9a27051
-[49]:https://github.com/JBlond/math-function/commit/c8566e6
+[40]:https://github.com/JBlond/math-function/commit/df88502
+[41]:https://github.com/JBlond/math-function/commit/08ce625
+[42]:https://github.com/JBlond/math-function/commit/02edd55
+[43]:https://github.com/JBlond/math-function/commit/f61da5c
+[44]:https://github.com/JBlond/math-function/commit/bce70dc
+[45]:https://github.com/JBlond/math-function/commit/fd2996e
+[46]:https://github.com/JBlond/math-function/commit/f697d78
+[47]:https://github.com/JBlond/math-function/commit/33056f7
+[48]:https://github.com/JBlond/math-function/commit/90fac90
+[49]:https://github.com/JBlond/math-function/commit/00007dd
+[50]:https://github.com/JBlond/math-function/commit/4a71d57
+[51]:https://github.com/JBlond/math-function/commit/9fbd717
+[52]:https://github.com/JBlond/math-function/commit/3315f94
+[53]:https://github.com/JBlond/math-function/commit/9a27051
+[54]:https://github.com/JBlond/math-function/commit/c8566e6
