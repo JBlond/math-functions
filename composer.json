@@ -11,10 +11,10 @@
     }
   ],
   "require": {
-    "php": ">= 8.0",
-    "digilive/git-changelog": "^2.0"
+    "php": ">= 8.0"
   },
   "require-dev": {
+    "digilive/git-changelog": "^2.0",
     "phpunit/phpunit": "^9 || ^10 || ^11 || ^12 ",
     "squizlabs/php_codesniffer": "*"
   },
