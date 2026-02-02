@@ -61,7 +61,7 @@ class AirTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->assertEquals(
             1.26,
-            $this->air->calculateAbsoluteHumidity(38.9, -5.0)
+            round($this->air->calculateAbsoluteHumidity(38.9, -5.0), 2)
         );
         $this->assertEquals(
             1.26,

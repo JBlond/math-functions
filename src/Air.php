@@ -35,7 +35,7 @@ class Air
         /*
         * Computes absolute humidity from relative humidity and temperature.
         *  Based on the August-Roche-Magnus approximation.
-        *  Considered valid when: 0 < temperature < 60 degrees Celsius
+        *  Considered valid when: -40 < temperature < 60 degrees Celsius
         *                         1% < relative humidity < 100%
         *                         0 < dew point < 50 degrees Celsius
         *
@@ -75,7 +75,8 @@ class Air
         }
 
         // Alduchov-Eskeridge coefficients
-        if ($temperatureInCelsius >= 0) {
+        // Triple point of water is 0.01
+        if ($temperatureInCelsius >= 0.01) {
             // water
             $kA = 17.625;
             $kB = 243.05;
@@ -104,11 +105,20 @@ class Air
      */
     public function dewPoint(float $temperatureInCelsius, float $humidityInPercent): float
     {
-        $k2 = 17.62;
-        $k3 = 243.12;
+        if ($humidityInPercent <= 0 || $humidityInPercent > 100) {
+            throw new InvalidArgumentException("Humidity must be between 0 and 100 percent");
+        }
+
+        if ($temperatureInCelsius < -65 || $temperatureInCelsius > 60) {
+            throw new InvalidArgumentException("Temperature must be between -65 and 60 Celsius");
+        }
+
         if ($temperatureInCelsius <= 0) {
             $k2 = 22.46;
             $k3 = 272.62;
+        } else {
+            $k2 = 17.62;
+            $k3 = 243.12;
         }
 
         return $k3 * (
