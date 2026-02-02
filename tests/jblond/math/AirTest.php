@@ -100,7 +100,7 @@ class AirTest extends TestCase
             );
         } catch (InvalidArgumentException $exception) {
             $this->assertSame(
-                'Temperature In Celsius has to be between 1 and 60',
+                'Temperature In Celsius has to be between -40 and 60',
                 $exception->getMessage()
             );
         }

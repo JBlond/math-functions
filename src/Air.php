@@ -17,6 +17,7 @@ class Air
     {
         $this->temperature = new Temperature();
     }
+
     /**
      * @param float $relativeHumidity
      * @param float $temperature
@@ -54,9 +55,6 @@ class Air
         $kSVP = 6.112;
         // Molecular weight of water in g/mol
         $kMolecularWeight = 18.01528;
-        // Alduchov-Eskeridge coefficients
-        $kA = 17.625;
-        $kB = 243.05;
 
         if ($isRelativeHumidityInPercent) {
             if ($relativeHumidity < 1 || $relativeHumidity > 100) {
@@ -72,8 +70,19 @@ class Air
             $temperatureInCelsius = ($temperature - 32) / 1.8000;
         }
 
-        if ($temperatureInCelsius < 1 || $temperatureInCelsius > 60) {
-            throw new InvalidArgumentException("Temperature In Celsius has to be between 1 and 60");
+        if ($temperatureInCelsius < -40 || $temperatureInCelsius > 60) {
+            throw new InvalidArgumentException("Temperature In Celsius has to be between -40 and 60");
+        }
+
+        // Alduchov-Eskeridge coefficients
+        if ($temperatureInCelsius >= 0) {
+            // water
+            $kA = 17.625;
+            $kB = 243.05;
+        } else {
+            // ice
+            $kA = 22.443;
+            $kB = 272.186;
         }
 
         $temperatureInKelvin = $temperatureInCelsius + 273.15;
