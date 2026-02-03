@@ -104,7 +104,7 @@ Calculates the distance between two points. [Choose your function](geodistance.m
   - kelvinToCelsius(float $temperature)
 
 ## ISO‑52016 (Building Energy / Moisture Module)
-- vaporPressureDeficitPa(float $T, float $RH)
+  - vaporPressureDeficitPa(float $T, float $RH)
   - degreeOfSaturation(float $T, float $RH, float $pressurePa = 101325.0)
   - specificHumidity(float $T, float $RH, float $pressurePa = 101325.0)
   - latentMoistureLoad(float $airFlowM3s, float $T, float $RH, float $targetRH, float $pressurePa = 101325.0)
