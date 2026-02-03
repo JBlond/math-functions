@@ -6,8 +6,6 @@ namespace jblond\math;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use jblond\math\ISO52016;
-use jblond\math\Air;
 
 final class ISO52016Test extends TestCase
 {
@@ -51,7 +49,7 @@ final class ISO52016Test extends TestCase
     public function testSpecificHumidity(): void
     {
         // Specific humidity x < W
-        $x = $this->iso->specificHumidity(20.0, 50.0, 101325.0);
+        $x = $this->iso->specificHumidity(20.0, 50.0);
         $W = $this->air->humidityRatio(20.0, 50.0, 101325.0);
 
         $this->assertLessThan($W, $x);
