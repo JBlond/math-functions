@@ -1,20 +1,50 @@
 # Changelog
 
-## 1.9.0 (2025-10-04)
+## 1.9.4 (2026-02-03)
+
+* Add ISO 52016 ([fbdf2c0][56])
+* Add unit test. Remove dead code ([7dda8d2][55])
+
+## 1.9.3 (2026-02-02)
+
+* Bug fix release
+
+## 1.9.2 (2026-02-02)
+
+* Allow negative temperatures for absolute humidity
+
+## 1.9.1 (2025-10-09)
+
+* removed dependence from prod
+
+## 1.9.0 (2025-10-09)
 
 * Add AirEnthalpy ([c8566e6][54])
+
 * Add CO2 ([9a27051][53], [3315f94][52])
+
 * Add changelog generator and changelog ([9fbd717][51])
+
 * Add geodistance readme ([4a71d57][50])
+
 * Add more functions ([00007dd][49])
+
 * Add phpunit version 12 ([90fac90][48])
+
 * Add plotter ([33056f7][47])
+
 * Add tests ([f697d78][46], [fd2996e][45],[bce70dc][44], [f61da5c][43])
+
 * Add xdebug variable ([02edd55][42])
+
 * Fix: Test ([08ce625][41], [df88502][40])
+
 * Fix: dark mode for code coverage ([1e54188][39])
+
 * Fix: gd should be optional ([7951bc8][38])
+
 * Fix path ([702e6e7][37])
+
 * Fix warning ([2a8d2a2][36])
 
 ## 1.8.0 (2025-10-04)
@@ -54,10 +84,15 @@
 
 ## 1.4.0 (2024-02-14)
 
-* Add Heading function from https://github.com/googlemaps/android-maps-utils/([a9c6e7d][19])
+* Add Heading function from https://github.com/googlemaps/android-maps-utils/
+([a9c6e7d][19])
+
 * Add sources for the fomulars ([f6cb41e][18])
+
 * Add temperature converter ([0f26e98][17])
+
 * Add type strictness ([8384e6d][16])
+
 * Fix view ([8dcff04][15], [be53ab6][14])
 
 ## 1.3.0 (2023-06-13)
@@ -74,9 +109,13 @@
 ## 1.2.0 (2022-12-13)
 
 * Add haversine distance function ([45c097f][5])
+
 * Add more functions ([7895342][4])
+
 * Add return type ([67d8988][3])
-* Fix unit tests / PHP 8 has longer numbers for math constants([85bf186][2])
+
+* Fix unit tests / PHP 8 has longer numbers for math constants
+([85bf186][2])
 
 ## 1.1.0 (2022-04-19)
 
@@ -141,3 +180,5 @@
 [52]:https://github.com/JBlond/math-function/commit/3315f94
 [53]:https://github.com/JBlond/math-function/commit/9a27051
 [54]:https://github.com/JBlond/math-function/commit/c8566e6
+[55]:https://github.com/JBlond/math-function/commit/7dda8d2
+[56]:https://github.com/JBlond/math-function/commit/fbdf2c0
