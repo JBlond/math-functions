@@ -193,7 +193,15 @@ class Air
      */
     public function saturationVaporPressure(float $temperatureInCelsius): float
     {
-        return 6.112 * exp((17.67 * $temperatureInCelsius) / ($temperatureInCelsius + 243.5));
+        if ($temperatureInCelsius >= 0.01) {
+            $A = 17.625;
+            $B = 243.05;
+        } else {
+            $A = 22.443;
+            $B = 272.186;
+        }
+
+        return 6.112 * exp(($A * $temperatureInCelsius) / ($temperatureInCelsius + $B));
     }
 
     /**
@@ -205,8 +213,14 @@ class Air
     public function wetBulbTemperature(float $temperatureInCelsius, float $humidityInPercent): float
     {
         // Validate the inputs
-        if ($temperatureInCelsius < -20 || $temperatureInCelsius > 50 || $humidityInPercent < 5 || $humidityInPercent > 99) {
-            throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be between -20 and 50 °C, and Humidity between 5% and 99%.");
+        if (
+            $temperatureInCelsius < -20 ||
+            $temperatureInCelsius > 50 ||
+            $humidityInPercent < 5 ||
+            $humidityInPercent > 99
+        ) {
+            throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be "..
+                "between -20 and 50 °C, and Humidity between 5% and 99%.");
         }
 
         // Calculate wet-bulb temperature
