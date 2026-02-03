@@ -219,7 +219,7 @@ class Air
             $humidityInPercent < 5 ||
             $humidityInPercent > 99
         ) {
-            throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be "..
+            throw new InvalidArgumentException("Inputs out of valid range. Temperature in Celsius should be " .
                 "between -20 and 50 °C, and Humidity between 5% and 99%.");
         }
 
