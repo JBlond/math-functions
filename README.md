@@ -1,5 +1,11 @@
 # Math functions
 
+[https://img.shields.io/packagist/v/jblond/math-functions?logo=packagist&label=Packagist](https://packagist.org/packages/jblond/math-functions)
+[https://img.shields.io/packagist/php-v/jblond/math-functions?logo=php&label=PHP](https://packagist.org/packages/jblond/math-functions)
+[https://img.shields.io/packagist/dt/jblond/math-functions?logo=composer&label=Downloads](https://packagist.org/packages/jblond/math-functions)
+[https://img.shields.io/packagist/l/jblond/math-functions?label=License](https://packagist.org/packages/jblond/math-functions)
+
+
 Install via composer
 
 ```php
