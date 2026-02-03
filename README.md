@@ -74,6 +74,14 @@ Calculates the distance between two points. [Choose your function](geodistance.m
  - iso7730(float $temperature, float $radiantTemperature, float $velocity, float $relativeHumidity, float $metabolicRate, float $clothingInsulation )
  - pmvToWords(float $pmv, string $lang = 'en') See also [ISO-7730](ISO-7730.md)
 
+## Psychrometric Chart
+  - saturationVaporPressurePa(float $T)
+  - humidityRatioFromRH(float $T, float $RH, float $pPa = 101325.0)
+  - enthalpy(float $T, float $w)
+  - rhIsoline(float $RH, float $pPa = 101325.0, float $Tmin = 0.0, float $Tmax = 40.0, float $dT = 1.0)
+  - enthalpyLine(float $hTarget, float $Tmin = 0.0, float $Tmax = 40.0, float $dT = 1.0)
+  - stateLineAtT(float $T, float $pPa = 101325.0)
+
 ## Sphere
  - areaOfADisc(float $radius)
  - circumference(float $radius)
@@ -89,3 +97,11 @@ Calculates the distance between two points. [Choose your function](geodistance.m
   - fahrenheitToKelvin(float $temperature)
   - celsiusToKelvin(float $temperature)
   - kelvinToCelsius(float $temperature)
+
+## ISO‑52016 (Building Energy / Moisture Module)
+- vaporPressureDeficitPa(float $T, float $RH)
+  - degreeOfSaturation(float $T, float $RH, float $pressurePa = 101325.0)
+  - specificHumidity(float $T, float $RH, float $pressurePa = 101325.0)
+  - latentMoistureLoad(float $airFlowM3s, float $T, float $RH, float $targetRH, float $pressurePa = 101325.0)
+  - operativeTemperature(float $airTemp, float $radiantTemp, float $airVelocity = 0.1)
+  - moistureBalanceStep(float $currentW, float $moistureSourceKgPerS, float $airMassFlowKgPerS, float $targetW, float $dtSeconds)
