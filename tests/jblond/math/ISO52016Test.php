@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace jblond\math;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use jblond\math\ISO52016;
 use jblond\math\Air;
@@ -38,6 +39,13 @@ final class ISO52016Test extends TestCase
         $this->assertLessThan(1.0, $mu_30pct);
 
         $this->assertGreaterThan($mu_30pct, $mu_70pct);
+    }
+
+    public function testVaporPressureDeficitPaLimit(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->iso->vaporPressureDeficitPa(20.0, 101.0);
+        $this->iso->vaporPressureDeficitPa(20.0, -30.0);
     }
 
     public function testSpecificHumidity(): void

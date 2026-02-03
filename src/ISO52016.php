@@ -50,9 +50,6 @@ class ISO52016
         $den_s    = max(1.0, $pressurePa - $p_ws_Pa);
         $W_s      = 0.621945 * ($p_ws_Pa / $den_s);
 
-        if ($W_s <= 0) {
-            return 0.0;
-        }
         return $W / $W_s;
     }
 
