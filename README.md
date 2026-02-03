@@ -1,10 +1,9 @@
 # Math functions
 
-[https://img.shields.io/packagist/v/jblond/math-functions?logo=packagist&label=Packagist](https://packagist.org/packages/jblond/math-functions)
-[https://img.shields.io/packagist/php-v/jblond/math-functions?logo=php&label=PHP](https://packagist.org/packages/jblond/math-functions)
-[https://img.shields.io/packagist/dt/jblond/math-functions?logo=composer&label=Downloads](https://packagist.org/packages/jblond/math-functions)
-[https://img.shields.io/packagist/l/jblond/math-functions?label=License](https://packagist.org/packages/jblond/math-functions)
-
+![https://packagist.org/packages/jblond/math-functions](https://img.shields.io/packagist/v/jblond/math-functions?logo=packagist&label=Packagist)
+![https://packagist.org/packages/jblond/math-functions](https://img.shields.io/packagist/php-v/jblond/math-functions?logo=php&label=PHP)
+![https://packagist.org/packages/jblond/math-functions](https://img.shields.io/packagist/dt/jblond/math-functions?logo=composer&label=Downloads)
+![https://packagist.org/packages/jblond/math-function](shttps://img.shields.io/packagist/l/jblond/math-functions?label=License)
 
 Install via composer
 
@@ -23,7 +22,7 @@ composer require jblond/math-functions
 
 ## Geo distance
 
-Calculates the distance between two points. [Choose your function](geodistance.md). 
+Calculates the distance between two points. [Choose your function](geodistance.md).
 
 - vincenty function
   <details><summary>- Parameters</summary>
