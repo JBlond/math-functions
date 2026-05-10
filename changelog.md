@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.5 (2026-05-10)
+
+* [Update Text for better understanding](https://github.com/JBlond/math-functions/commit/f29831aa2f6354e26a8b3199fe19439134bdd3bc)
+*[remove old code](https://github.com/JBlond/math-functions/commit/d5882b8dab6b6d4f1df67de2971d7bcae66bc1b0)
+
 ## 1.9.4 (2026-02-03)
 
 * Add ISO 52016 ([fbdf2c0][56])
@@ -7,15 +12,15 @@
 
 ## 1.9.3 (2026-02-02)
 
-* Bug fix release
+* No changes.
 
 ## 1.9.2 (2026-02-02)
 
-* Allow negative temperatures for absolute humidity
+* No changes.
 
 ## 1.9.1 (2025-10-09)
 
-* removed dependence from prod
+* No changes.
 
 ## 1.9.0 (2025-10-09)
 
@@ -33,7 +38,8 @@
 
 * Add plotter ([33056f7][47])
 
-* Add tests ([f697d78][46], [fd2996e][45],[bce70dc][44], [f61da5c][43])
+* Add tests ([f697d78][46], [fd2996e][45],
+[bce70dc][44], [f61da5c][43])
 
 * Add xdebug variable ([02edd55][42])
 
