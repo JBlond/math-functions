@@ -289,6 +289,55 @@ class Air
      *  | −2   | cool         | kühl       |
      *  | −3   | cold         | kalt       |
      *
+     * Winterbedingungen (Heizperiode)
+     *
+     * Operative Temperatur zwischen 20 °C und 24 °C.
+     * Vertikale Lufttemperaturdifferenz zwischen Knöchelhöhe (0,1 m) und Kopfhöhe (1,1 m) weniger als 3 °C.
+     * Fußbodentemperatur zwischen 19 °C und 26 °C (bis 29 °C bei Fußbodenheizungssystemen).
+     * Mittlere Luftgeschwindigkeit unterhalb des für die gegebene Turbulenzintensität festgelegten Grenzwerts.
+     * Strahlungstemperaturasymmetrie von kalten vertikalen Flächen (Fenstern) weniger als 10 °C.
+     * Strahlungstemperaturasymmetrie von einer warmen Decke weniger als 5 °C.
+     * Relative Luftfeuchtigkeit zwischen 30 % und 70 %.
+     *
+     * Sommerbedingungen (Kühlperiode)
+     *
+     * Operative Temperatur zwischen 23 °C und 26 °C.
+     * Vertikale Lufttemperaturdifferenz zwischen Knöchel- und Kopfhöhe weniger als 3 °C.
+     * Mittlere Luftgeschwindigkeit unterhalb des für die gegebene Turbulenzintensität festgelegten Grenzwerts.
+     * Relative Luftfeuchtigkeit zwischen 30 % und 70 %.
+ *
+     * Typische Werte für Met und Clo
+     *
+     * Die Stoffwechselrate (Met) repräsentiert
+     * die vom menschlichen Körper erzeugte Wärme und steigt mit dem Aktivitätsniveau.
+     * Die Bekleidungsisolierung (Clo) quantifiziert den Wärmewiderstand, den die Bekleidung des Nutzers bietet.
+     * Die folgenden Tabellen listen häufig verwendete Referenzwerte für beide Parameter auf.
+     *
+     * | Aktivität                   | Stoffwechselrate (Met) |
+     * | --------------------------- | ---------------------- |
+     * | Ruhen (ruhig sitzend)       | 0,8                    |
+     * | Lesen oder Schreiben        | 1,0                    |
+     * | Sitzend, leichte Büroarbeit | 1,2                    |
+     * | Stehend, leichte Aktivität  | 1,4                    |
+     * | Stehend, mittlere Aktivität | 1,8                    |
+     * | Gehen (3 km/h)              | 2,0                    |
+     * | Hausarbeit                  | 2,5                    |
+     * | Gehen (5 km/h)              | 2,8                    |
+     * | Schwere Arbeit (Heben usw.) | 3,5                    |
+     * | Laufen (8 km/h)             | 8,0                    |
+     *
+     * | Bekleidungsart                        | Bekleidungsisolierung (Clo) |
+     * | ------------------------------------- | --------------------------- |
+     * | Unbekleidet                           | 0,0                         |
+     * | Sommer, leichte Kleidung              | 0,5                         |
+     * | Typische Innenraumbekleidung          | 0,6                         |
+     * | Langarmhemd, Hose                     | 0,7                         |
+     * | Leichter Geschäftsanzug               | 0,9                         |
+     * | Geschäftsanzug mit Pullover           | 1,0                         |
+     * | Winterkleidung                        | 1,3                         |
+     * | Winterkleidung mit Mantel             | 1,5                         |
+     * | Schwerer Wintermantel, Thermokleidung | 2,0                         |
+ *
      * PPD (Predicted Percentage of Dissatisfied):
      * Predicted percentage of people dissatisfied with the thermal condition.
      * It is a function of PMV; e.g., PMV = 0 → PPD ≈ 5%, |PMV| ≤ 0.5 typically corresponds to PPD ≤ ~10%.
