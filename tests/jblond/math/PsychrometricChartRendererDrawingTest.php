@@ -34,7 +34,6 @@ class PsychrometricChartRendererDrawingTest extends TestCase
         // Zugriff auf private Methode via Reflection
         $ref = new ReflectionClass($this->renderer);
         $method = $ref->getMethod('drawDot');
-        $method->setAccessible(true);
 
         // sollte ohne Fehler durchlaufen
         $method->invoke($this->renderer, 100, 100, 10, imagecolorallocate(imagecreatetruecolor(1,1), 0,0,0));

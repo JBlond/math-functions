@@ -25,7 +25,6 @@ class PsychrometricChartRendererTest extends TestCase
         // Zugriff über Reflection, da private Properties
         $ref = new ReflectionClass($this->renderer);
         $prop = $ref->getProperty('pressurePa');
-        $prop->setAccessible(true);
 
         $this->assertSame(100000.0, $prop->getValue($this->renderer));
     }
@@ -37,7 +36,6 @@ class PsychrometricChartRendererTest extends TestCase
     {
         $ref = new ReflectionClass($this->renderer);
         $method = $ref->getMethod('saturationVaporPressurePa');
-        $method->setAccessible(true);
 
         $result = $method->invoke($this->renderer, 20.0); // 20°C
         $this->assertGreaterThan(2000, $result);

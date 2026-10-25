@@ -218,6 +218,5 @@ class PsychrometricChartRenderer
         // Title
         $this->drawLabel($this->marginLeft, 5, 'Psychrometric chart', $this->color['text']);
         imagepng($this->img, $path);
-        imagedestroy($this->img);
     }
 }
