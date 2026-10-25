@@ -1,6 +1,5 @@
 <?php
 
-
 namespace jblond\math;
 
 use PHPUnit\Framework\TestCase;

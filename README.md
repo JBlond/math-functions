@@ -79,6 +79,7 @@ Calculates the distance between two points. [Choose your function](geodistance.m
 - windchill(float $temperatureInCelsius, float $windSpeedInKmPerHour)
 - iso7730(float $temperature, float $radiantTemperature, float $velocity, float $relativeHumidity, float $metabolicRate, float $clothingInsulation )
 - pmvToWords(float $pmv, string $lang = 'en') See also [ISO-7730](ISO-7730.md)
+- adaptiveComfort(float $prevailingOutdoorTemp, float $currentIndoorTemp)
 
 ## Psychrometric Chart
 
