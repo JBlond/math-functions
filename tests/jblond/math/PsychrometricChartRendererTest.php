@@ -51,7 +51,6 @@ class PsychrometricChartRendererTest extends TestCase
     {
         $ref = new ReflectionClass($this->renderer);
         $method = $ref->getMethod('humidityRatioFromRH');
-        $method->setAccessible(true);
 
         $result = $method->invoke($this->renderer, 25.0, 50.0); // 25°C, 50% RH
         $this->assertGreaterThan(0.005, $result);
@@ -65,7 +64,6 @@ class PsychrometricChartRendererTest extends TestCase
     {
         $ref = new ReflectionClass($this->renderer);
         $method = $ref->getMethod('enthalpyKJPerKgDryAir');
-        $method->setAccessible(true);
 
         $result = $method->invoke($this->renderer, 25.0, 0.01);
         $this->assertGreaterThan(40, $result);
@@ -80,10 +78,7 @@ class PsychrometricChartRendererTest extends TestCase
         $ref = new ReflectionClass($this->renderer);
 
         $xFromT = $ref->getMethod('xFromT');
-        $xFromT->setAccessible(true);
-
         $yFromW = $ref->getMethod('yFromW');
-        $yFromW->setAccessible(true);
 
         $x = $xFromT->invoke($this->renderer, 20.0);
         $y = $yFromW->invoke($this->renderer, 0.015);
