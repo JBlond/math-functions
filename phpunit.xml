@@ -3,6 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         colors="true"
         bootstrap="vendor/autoload.php"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd">
     <coverage includeUncoveredFiles="true">
       <report>
