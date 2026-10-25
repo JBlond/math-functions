@@ -464,6 +464,46 @@ class Air
         return $map[$rounded][$lang] ?? (string) $rounded;
     }
 
+    /**
+     * Calculate Adaptive Thermal Comfort (ATC) according to ASHRAE 55 / EN 16798
+     *
+     * Unlike PMV, ATC does not use metabolic rate or clothing in a formula,
+     * as these are assumed to be adapted by the user. Instead, it uses
+     * the prevailing mean outdoor temperature.
+     *
+     * @param float $prevailingOutdoorTemp - The running mean outdoor temperature over the last 7 days in °C
+     * @param float $currentIndoorTemp    - The current indoor air temperature in °C
+     * @return array ['ComfortTemp'=>float, 'LowerLimit'=>float, 'UpperLimit'=>float, 'isComfortable'=>bool]
+     */
+    public function adaptiveComfort(
+        float $prevailingOutdoorTemp,
+        float $currentIndoorTemp
+    ): array {
+        // ASHRAE 55 / EN 16798 Formula for Adaptive Comfort
+        // The comfort temperature (Tcom) is a linear function of the prevailing outdoor temperature.
+
+        // Standard formula: Tcom = 0.31 * Toutdoor + 17.8
+        // Note: These constants can vary slightly between ASHRAE and EN standards.
+        $comfortTemp = 0.31 * $prevailingOutdoorTemp + 17.8;
+
+        // The acceptable range is typically defined as ±2.5 °C for 80% acceptability
+        // or ±3.5 °C for 90% acceptability. We use 80% (±2.5) as the standard.
+        $tolerance = 2.5;
+        $lowerLimit = $comfortTemp - $tolerance;
+        $upperLimit = $comfortTemp + $tolerance;
+
+        $isComfortable = ($currentIndoorTemp >= $lowerLimit && $currentIndoorTemp <= $upperLimit);
+
+        return [
+            'ComfortTemp' => round($comfortTemp, 2),
+            'LowerLimit'  => round($lowerLimit, 2),
+            'UpperLimit'  => round($upperLimit, 2),
+            'isComfortable' => $isComfortable,
+            'CurrentTemp' => $currentIndoorTemp
+        ];
+    }
+
+
     public function co2Category(int $ppm, string $lang = 'de'): string
     {
         $categories = [
